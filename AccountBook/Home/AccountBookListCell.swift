@@ -17,7 +17,7 @@ class AccountBookListCell: UICollectionViewCell {
     @IBOutlet weak var view: UIView!
     
     func configure(item: AccountBook) {
-        self.dateLabel.text = formatDate(item.date)
+        self.dateLabel.text = item.date
         self.contentsLabel.text = item.contents
         self.priceLabel.text = "\(formatNumber(item.price))원"
         self.priceLabel.textColor = item.category == "수입" ? UIColor(named: "PrimaryGreen") : UIColor(named: "PrimaryRed")
@@ -32,14 +32,14 @@ class AccountBookListCell: UICollectionViewCell {
         return result
     }
     
-    private func formatDate(_ date: String) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        
-        let date = formatter.date(from: date) ?? Date()
-        formatter.dateFormat = "yyyy.MM.dd"
-        let result = formatter.string(from: date)
-        
-        return result
-    }
+//    private func formatDate(_ date: String) -> String {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+//
+//        let date = formatter.date(from: date) ?? Date()
+//        formatter.dateFormat = "yyyy.MM.dd"
+//        let result = formatter.string(from: date)
+//
+//        return result
+//    }
 }

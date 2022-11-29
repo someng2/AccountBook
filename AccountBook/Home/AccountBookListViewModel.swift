@@ -8,8 +8,10 @@
 import Foundation
 
 final class AccountBookListViewModel {
+    
     @Published var list: [AccountBook] = []
-    @Published var dic: [String: [AccountBook]] = [:]
+//    @Published var dic: [String: [AccountBook]] = [:]
+    @Published var summary: Summary = Summary.default
     
     // 날짜 정렬
 //    var keys: [String] {
@@ -20,7 +22,10 @@ final class AccountBookListViewModel {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.list = AccountBook.tempList
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.summary = Summary.default
+        }
     }
-    
 }
 

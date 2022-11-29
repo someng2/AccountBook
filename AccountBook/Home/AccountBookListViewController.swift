@@ -12,7 +12,7 @@ class AccountBookListViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    typealias Item = AccountBook
+    typealias Item = AnyHashable
     enum Section: Int {
         case summary
         case list
@@ -45,7 +45,14 @@ class AccountBookListViewController: UIViewController {
     }
     
     private func bind() {
-        //TODO: viewModel Combine으로 가져오기
+        
+        viewModel.$summary
+            .receive(on: RunLoop.main)
+            .sink { summary in
+                print("summary = \(summary)")
+                self.applySnapshot(items: [summary], section: .summary)
+            }.store(in: &subscriptions)
+        
         viewModel.$list
             .receive(on: RunLoop.main)
             .sink { list in
@@ -53,6 +60,8 @@ class AccountBookListViewController: UIViewController {
                 print("sorted list = \(list.sorted(by: { $0.monthlyIdentifier > $1.monthlyIdentifier }))")
                 self.applySnapshot(items: list.sorted(by: { $0.monthlyIdentifier > $1.monthlyIdentifier }), section: .list)
             }.store(in: &subscriptions)
+        
+
     }
     
     private func applySnapshot(items: [Item], section: Section) {
@@ -64,13 +73,23 @@ class AccountBookListViewController: UIViewController {
     private func configureCell(for section: Section, item: Item, collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell? {
         switch section{
         case .summary:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SummaryCell", for: indexPath) as! SummaryCell
-            cell.configure()
-            return cell
+            if let summary = item as? Summary {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SummaryCell", for: indexPath) as! SummaryCell
+                cell.configure(item: summary)
+                return cell
+            } else {
+                return nil
+            }
+            
         case .list:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AccountBookListCell", for: indexPath) as! AccountBookListCell
-            cell.configure(item: item)
-            return cell
+            if let accountBook = item as? AccountBook {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AccountBookListCell", for: indexPath) as! AccountBookListCell
+                cell.configure(item: accountBook)
+                return cell
+            }
+            else {
+                return nil
+            }
         }
     }
     
