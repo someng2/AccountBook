@@ -46,6 +46,16 @@ class AccountBookListViewController: UIViewController {
     
     private func bind() {
         
+        viewModel.$dateFilter
+            .receive(on: RunLoop.main)
+            .sink { filter in
+                print("---> new date filter: \(filter)")
+                self.viewModel.list = AccountBook.tempList.filter {
+                    $0.monthlyIdentifier == filter
+                }
+                print("---> list date filter: \(self.viewModel.list)")
+            }.store(in: &subscriptions)
+        
         viewModel.$summary
             .receive(on: RunLoop.main)
             .sink { summary in
@@ -57,15 +67,15 @@ class AccountBookListViewController: UIViewController {
             .receive(on: RunLoop.main)
             .sink { list in
 //                self.viewModel.dic = Dictionary(grouping: list, by: { $0.monthlyIdentifier })
-                print("sorted list = \(list.sorted(by: { $0.monthlyIdentifier > $1.monthlyIdentifier }))")
-                self.applySnapshot(items: list.sorted(by: { $0.monthlyIdentifier > $1.monthlyIdentifier }), section: .list)
+                print("---> sorted list = \(list.sorted(by: { $0.hourIdentifier > $1.hourIdentifier }))")
+                self.applySnapshot(items: list.sorted(by: { $0.hourIdentifier > $1.hourIdentifier }), section: .list)
             }.store(in: &subscriptions)
-        
-
     }
     
     private func applySnapshot(items: [Item], section: Section) {
         var snapshot = datasource.snapshot()
+        let previousItems = snapshot.itemIdentifiers(inSection: section)
+        snapshot.deleteItems(previousItems)
         snapshot.appendItems(items, toSection: section)
         datasource.apply(snapshot)
     }
@@ -75,7 +85,7 @@ class AccountBookListViewController: UIViewController {
         case .summary:
             if let summary = item as? Summary {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SummaryCell", for: indexPath) as! SummaryCell
-                cell.configure(item: summary)
+                cell.configure(item: summary, vm: viewModel)
                 return cell
             } else {
                 return nil
