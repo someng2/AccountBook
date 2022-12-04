@@ -25,21 +25,27 @@ class SummaryCell: UICollectionViewCell {
     var todayYear = "0"
     var todayMonth = "0"
     
-    func configure(item: Summary) {
-        yearTextField.text = "🗓  \(formatDate(Date()))"
+    var viewModel: AccountBookListViewModel = AccountBookListViewModel()
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
         yearTextField.tintColor = .clear
         yearTextField.backgroundColor = UIColor(named: "PrimaryBlue")
         yearTextField.textColor = .white
-        revenueLabel.text = "\(formatNumber(item.revenue))원"
-        expenseLabel.text = "\(formatNumber(item.expense))원"
-        sumLabel.text = "\(formatNumber(item.sum))원"
         revenueView.layer.cornerRadius = 10
         revenueView.backgroundColor = UIColor(named: "PrimaryGreen")
         expenseView.layer.cornerRadius = 10
         expenseView.backgroundColor = UIColor(named: "PrimaryRed")
         sumView.layer.borderWidth = 3
         sumView.layer.cornerRadius = 10
-        
+    }
+    
+    func configure(item: Summary, vm: AccountBookListViewModel) {
+        viewModel = vm
+        yearTextField.text = "🗓  \(viewModel.dateFilter)"
+        revenueLabel.text = "\(formatNumber(item.revenue))원"
+        expenseLabel.text = "\(formatNumber(item.expense))원"
+        sumLabel.text = "\(formatNumber(item.sum))원"
         addDatePicker()
     }
     
@@ -50,7 +56,6 @@ class SummaryCell: UICollectionViewCell {
         picker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         
         let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
-        //        button.backgroundColor = .green
         button.setTitle("완료", for: .normal)
         button.setTitleColor(UIColor(named: "PrimaryBlue"), for: .normal)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
@@ -71,9 +76,13 @@ class SummaryCell: UICollectionViewCell {
     }
     
     @objc func buttonAction(sender: UIButton!) {
+        viewModel.dateFilter = yearTextField.text?.components(separatedBy: "  ")[1] ?? "미선택"
+//        print("-> viewModel.dateFilter: \(viewModel.dateFilter)")
+//        print(yearTextField.text?.components(separatedBy: "  "))
         yearTextField.resignFirstResponder()
         
         // 리스트 업데이트
+        
     }
     
     private func formatNumber(_ price: Int) -> String {
