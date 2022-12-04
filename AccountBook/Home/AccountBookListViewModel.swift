@@ -29,7 +29,7 @@ final class AccountBookListViewModel {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.list = AccountBook.tempList.filter {
                 $0.monthlyIdentifier == self.dateFilter
-            }
+            }.sorted(by: { $0.hourIdentifier > $1.hourIdentifier })
         }
         
         self.summary = Summary.default

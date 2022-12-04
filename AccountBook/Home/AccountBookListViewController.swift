@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 class AccountBookListViewController: UIViewController {
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     typealias Item = AnyHashable
@@ -30,7 +30,7 @@ class AccountBookListViewController: UIViewController {
     
     private func configureCollectionView() {
         datasource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
-            guard let section = Section(rawValue: indexPath.section) else { return nil}
+            guard let section = Section(rawValue: indexPath.section) else { return nil }
             let cell = self.configureCell(for: section, item: item, collectionView: collectionView, indexPath: indexPath)
             return cell
         })
@@ -52,23 +52,28 @@ class AccountBookListViewController: UIViewController {
                 print("---> new date filter: \(filter)")
                 self.viewModel.list = AccountBook.tempList.filter {
                     $0.monthlyIdentifier == filter
-                }
+                }.sorted(by: { $0.hourIdentifier > $1.hourIdentifier })
+                
                 print("---> list date filter: \(self.viewModel.list)")
             }.store(in: &subscriptions)
         
         viewModel.$summary
             .receive(on: RunLoop.main)
             .sink { summary in
-                print("summary = \(summary)")
+                print("---> summary = \(summary)")
                 self.applySnapshot(items: [summary], section: .summary)
             }.store(in: &subscriptions)
         
         viewModel.$list
             .receive(on: RunLoop.main)
             .sink { list in
-//                self.viewModel.dic = Dictionary(grouping: list, by: { $0.monthlyIdentifier })
-                print("---> sorted list = \(list.sorted(by: { $0.hourIdentifier > $1.hourIdentifier }))")
-                self.applySnapshot(items: list.sorted(by: { $0.hourIdentifier > $1.hourIdentifier }), section: .list)
+                let revenueList = list.filter { $0.category == "수입"}
+                let totalRevenue = revenueList.map({$0.price}).reduce(0, +)
+                let expenseList = list.filter { $0.category == "지출"}
+                let totalExpense = expenseList.map({$0.price}).reduce(0, +)
+                self.viewModel.summary = Summary(revenue: totalRevenue, expense: totalExpense, sum: totalRevenue-totalExpense)
+                //                self.viewModel.dic = Dictionary(grouping: list, by: { $0.monthlyIdentifier })
+                self.applySnapshot(items: list, section: .list)
             }.store(in: &subscriptions)
     }
     
@@ -116,5 +121,5 @@ class AccountBookListViewController: UIViewController {
         return UICollectionViewCompositionalLayout(section: section)
     }
     
-
+    
 }

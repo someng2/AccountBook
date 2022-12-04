@@ -42,7 +42,7 @@ class SummaryCell: UICollectionViewCell {
     
     func configure(item: Summary, vm: AccountBookListViewModel) {
         viewModel = vm
-        yearTextField.text = "🗓  \(formatDate(Date()))"
+        yearTextField.text = "🗓  \(viewModel.dateFilter)"
         revenueLabel.text = "\(formatNumber(item.revenue))원"
         expenseLabel.text = "\(formatNumber(item.expense))원"
         sumLabel.text = "\(formatNumber(item.sum))원"
