@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import DTZFloatingActionButton
 
 class AccountBookListViewController: UIViewController {
     
@@ -23,9 +24,11 @@ class AccountBookListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "가계부"
         bind()
         configureCollectionView()
         viewModel.fetchAccountBooks()
+        addFloatingButton()
     }
     
     private func configureCollectionView() {
@@ -44,6 +47,18 @@ class AccountBookListViewController: UIViewController {
         collectionView.collectionViewLayout = layout()
     }
     
+    private func addFloatingButton() {
+        let actionButton = DTZFloatingActionButton()
+        actionButton.handler = {
+            button in
+            let sb = UIStoryboard(name: "NewAccountBook", bundle: nil)
+            let vc = sb.instantiateViewController(withIdentifier: "NewAccountBookViewController") as! NewAccountBookViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        actionButton.isScrollView = true
+        actionButton.buttonColor = UIColor(named: "PrimaryBlue")!
+        self.view.addSubview(actionButton)
+    }
     private func bind() {
         
         viewModel.$dateFilter
