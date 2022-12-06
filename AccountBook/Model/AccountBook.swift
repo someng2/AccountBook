@@ -9,11 +9,11 @@ import Foundation
 
 struct AccountBook: Hashable {
     var id = UUID()
-    let category: String
-    let subcategory: String
-    let contents: String
-    let price: Int
-    let date: String
+    var category: String
+    var subcategory: String
+    var contents: String
+    var price: Int
+    var date: String
 }
 
 extension AccountBook {

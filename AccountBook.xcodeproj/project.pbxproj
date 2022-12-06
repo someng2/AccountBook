@@ -18,6 +18,8 @@
 		3D39B7AD292CF8BF007AE783 /* AccountBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D39B7AC292CF8BF007AE783 /* AccountBook.swift */; };
 		3D39B7B0292CFE3E007AE783 /* AccountBookListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D39B7AF292CFE3E007AE783 /* AccountBookListViewController.swift */; };
 		3D39B7B3292D02C3007AE783 /* SummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D39B7B2292D02C3007AE783 /* SummaryCell.swift */; };
+		3D51CC1D293F7BFD005620C2 /* NewContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D51CC1C293F7BFD005620C2 /* NewContentViewController.swift */; };
+		3D51CC1F293F84C3005620C2 /* NewAccountBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D51CC1E293F84C3005620C2 /* NewAccountBookViewModel.swift */; };
 		3D653B92293C7FEC005365AC /* NewAccountBook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D653B91293C7FEC005365AC /* NewAccountBook.storyboard */; };
 		3D653B94293C801A005365AC /* NewAccountBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D653B93293C801A005365AC /* NewAccountBookViewController.swift */; };
 		3D67F050293633E500095700 /* Summary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67F04F293633E500095700 /* Summary.swift */; };
@@ -65,6 +67,8 @@
 		3D39B7AC292CF8BF007AE783 /* AccountBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBook.swift; sourceTree = "<group>"; };
 		3D39B7AF292CFE3E007AE783 /* AccountBookListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBookListViewController.swift; sourceTree = "<group>"; };
 		3D39B7B2292D02C3007AE783 /* SummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCell.swift; sourceTree = "<group>"; };
+		3D51CC1C293F7BFD005620C2 /* NewContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContentViewController.swift; sourceTree = "<group>"; };
+		3D51CC1E293F84C3005620C2 /* NewAccountBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountBookViewModel.swift; sourceTree = "<group>"; };
 		3D653B91293C7FEC005365AC /* NewAccountBook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewAccountBook.storyboard; sourceTree = "<group>"; };
 		3D653B93293C801A005365AC /* NewAccountBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountBookViewController.swift; sourceTree = "<group>"; };
 		3D67F04F293633E500095700 /* Summary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summary.swift; sourceTree = "<group>"; };
@@ -187,6 +191,8 @@
 			children = (
 				3D653B91293C7FEC005365AC /* NewAccountBook.storyboard */,
 				3D653B93293C801A005365AC /* NewAccountBookViewController.swift */,
+				3D51CC1C293F7BFD005620C2 /* NewContentViewController.swift */,
+				3D51CC1E293F84C3005620C2 /* NewAccountBookViewModel.swift */,
 			);
 			path = "New Account Book";
 			sourceTree = "<group>";
@@ -466,9 +472,11 @@
 				3D39B77D292CF892007AE783 /* AppDelegate.swift in Sources */,
 				3D653B94293C801A005365AC /* NewAccountBookViewController.swift in Sources */,
 				3DC7D1BC292D1706008C5D7A /* AccountBookListViewModel.swift in Sources */,
+				3D51CC1F293F84C3005620C2 /* NewAccountBookViewModel.swift in Sources */,
 				3D39B77F292CF892007AE783 /* SceneDelegate.swift in Sources */,
 				3D67F050293633E500095700 /* Summary.swift in Sources */,
 				3D39B7B3292D02C3007AE783 /* SummaryCell.swift in Sources */,
+				3D51CC1D293F7BFD005620C2 /* NewContentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

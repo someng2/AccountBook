@@ -59,6 +59,7 @@ class AccountBookListViewController: UIViewController {
         actionButton.buttonColor = UIColor(named: "PrimaryBlue")!
         self.view.addSubview(actionButton)
     }
+    
     private func bind() {
         
         viewModel.$dateFilter

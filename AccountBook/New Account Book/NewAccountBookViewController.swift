@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class NewAccountBookViewController: UIViewController{
     
@@ -13,15 +14,40 @@ class NewAccountBookViewController: UIViewController{
     @IBOutlet weak var priceMode: UIView!
     @IBOutlet weak var expenseButton: UIButton!
     @IBOutlet weak var revenueButton: UIButton!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var categoryView: UIView!
+    @IBOutlet weak var contentView: UIView!
+    
+    @IBOutlet weak var contentLabel: UILabel!
     
     var expenseMode = true
+    var vm: NewAccountBookViewModel = NewAccountBookViewModel()
+    var subscriptions = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         priceTextField.becomeFirstResponder()
         setupUI()
         priceTextField.delegate = self
+        
+        let categoryTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleCategoryTap(sender:)))
+        let contentTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleContentTap(sender:)))
+        categoryView.addGestureRecognizer(categoryTapGesture)
+        contentView.addGestureRecognizer(contentTapGesture)
+        bind()
     }
+    
+    private func bind() {
+        vm.$contents
+            .sink { contents in
+                print("---> contents : \(contents)")
+                self.contentLabel.text = (contents == "" ? "내용을 입력하세요." : contents)
+            }.store(in: &subscriptions)
+    }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        self.contentLabel.text = vm.accountBook.contents
+//    }
     
     private func setupUI() {
         navigationItem.largeTitleDisplayMode = .never
@@ -38,6 +64,13 @@ class NewAccountBookViewController: UIViewController{
         revenueButton.tintColor = .gray
         revenueButton.layer.borderColor = UIColor(ciColor: .gray).cgColor
         revenueButton.layer.cornerRadius = 10
+        
+        datePicker.preferredDatePickerStyle = .automatic
+        datePicker.datePickerMode = .dateAndTime
+        datePicker.locale = Locale(identifier: "ko-KR")
+        datePicker.timeZone = .autoupdatingCurrent
+        
+        contentLabel.text = vm.accountBook.contents.isEmpty ? "내용을 입력하세요." : vm.accountBook.contents
     }
     
     @IBAction func pressedExpenseButton(_ sender: Any) {
@@ -66,6 +99,22 @@ class NewAccountBookViewController: UIViewController{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         self.view.endEditing(true)
     }
+    
+    @objc func handleCategoryTap(sender: UITapGestureRecognizer) {
+        if sender.view == categoryView {
+            print("category view !")
+        }
+        
+    }
+    @objc func handleContentTap(sender: UITapGestureRecognizer) {
+        if sender.view == contentView {
+            let sb = UIStoryboard(name: "NewAccountBook", bundle: nil)
+            let vc = sb.instantiateViewController(withIdentifier: "NewContentViewController") as! NewContentViewController
+            vc.vm = self.vm
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
 }
 
 
