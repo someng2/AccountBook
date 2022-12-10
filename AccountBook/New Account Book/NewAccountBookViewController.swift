@@ -41,13 +41,9 @@ class NewAccountBookViewController: UIViewController{
         vm.$contents
             .sink { contents in
                 print("---> contents : \(contents)")
-                self.contentLabel.text = (contents == "" ? "내용을 입력하세요." : contents)
+                self.contentLabel.text = (contents.isEmpty ? "내용을 입력하세요." : contents)
             }.store(in: &subscriptions)
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        self.contentLabel.text = vm.accountBook.contents
-//    }
     
     private func setupUI() {
         navigationItem.largeTitleDisplayMode = .never

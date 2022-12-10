@@ -13,10 +13,6 @@ class NewContentViewController: UIViewController {
     
     var vm: NewAccountBookViewModel!
     
-//    init(viewModel: NewAccountBookViewModel) {
-//        self.vm = viewModel
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         contentTextView.delegate = self

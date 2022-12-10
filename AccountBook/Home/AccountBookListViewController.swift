@@ -8,6 +8,8 @@
 import UIKit
 import Combine
 import DTZFloatingActionButton
+import Firebase
+import FirebaseFirestore
 
 class AccountBookListViewController: UIViewController {
     
@@ -29,6 +31,9 @@ class AccountBookListViewController: UIViewController {
         configureCollectionView()
         viewModel.fetchAccountBooks()
         addFloatingButton()
+        
+        emailCheck(nickname: "someng")
+        emailCheck(nickname: "som")
     }
     
     private func configureCollectionView() {
@@ -137,5 +142,30 @@ class AccountBookListViewController: UIViewController {
         return UICollectionViewCompositionalLayout(section: section)
     }
     
+    var firestore: Firestore!
+    let db = Firestore.firestore()
+    
+    /*
+     이메일 중복 검사
+     */
+    func emailCheck(nickname: String){
+        var result = false
+        
+        let userDB = db.collection("User")
+        // 입력한 이메일이 있는지 확인 쿼리
+        let query = userDB.whereField("nickname", isEqualTo: nickname)
+        query.getDocuments() { (qs, err) in
+            
+            if qs!.documents.isEmpty {
+                print("\(nickname): 닉네임 중복안됨")
+                result = true
+            } else {
+                print("\(nickname): 닉네임 이미 존재!")
+                result = false
+            }
+        }
+        
+//        return result
+    }
     
 }
