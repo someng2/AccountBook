@@ -26,14 +26,18 @@ class AccountBookListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "가계부"
+        setupNavigationBar()
         bind()
         configureCollectionView()
-        viewModel.fetchAccountBooks()
+        viewModel.fetchDateFilter()
         addFloatingButton()
-        
-//        emailCheck(nickname: "someng")
-//        emailCheck(nickname: "som")
+    }
+    
+    private func setupNavigationBar() {
+        navigationItem.title = "가계부"
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backButton.tintColor = UIColor(named: "SecondaryNavy")
+        navigationItem.backBarButtonItem = backButton
     }
     
     private func configureCollectionView() {
@@ -71,17 +75,13 @@ class AccountBookListViewController: UIViewController {
             .receive(on: RunLoop.main)
             .sink { filter in
                 print("---> new date filter: \(filter)")
-                self.viewModel.list = AccountBook.tempList.filter {
-                    $0.monthlyIdentifier == filter
-                }.sorted(by: { $0.hourIdentifier > $1.hourIdentifier })
-                
-                print("---> list date filter: \(self.viewModel.list)")
+                self.viewModel.loadFirebaseData(dateFilter: filter)
             }.store(in: &subscriptions)
         
         viewModel.$summary
             .receive(on: RunLoop.main)
             .sink { summary in
-                print("---> summary = \(summary)")
+//                print("---> summary = \(summary)")
                 self.applySnapshot(items: [summary], section: .summary)
             }.store(in: &subscriptions)
         
@@ -140,32 +140,6 @@ class AccountBookListViewController: UIViewController {
         let section = NSCollectionLayoutSection(group: group)
         
         return UICollectionViewCompositionalLayout(section: section)
-    }
-    
-    var firestore: Firestore!
-    let db = Firestore.firestore()
-    
-    /*
-     이메일 중복 검사
-     */
-    func emailCheck(nickname: String){
-        var result = false
-        
-        let userDB = db.collection("User")
-        // 입력한 이메일이 있는지 확인 쿼리
-        let query = userDB.whereField("nickname", isEqualTo: nickname)
-        query.getDocuments() { (qs, err) in
-            
-            if qs!.documents.isEmpty {
-                print("\(nickname): 닉네임 중복안됨")
-                result = true
-            } else {
-                print("\(nickname): 닉네임 이미 존재!")
-                result = false
-            }
-        }
-        
-//        return result
     }
     
 }

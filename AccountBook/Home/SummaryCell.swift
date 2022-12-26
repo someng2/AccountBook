@@ -33,6 +33,8 @@ class SummaryCell: UICollectionViewCell {
         yearTextField.tintColor = .clear
         yearTextField.backgroundColor = UIColor(named: "PrimaryBlue")
         yearTextField.textColor = .white
+        yearTextField.layer.cornerRadius = 15
+        yearTextField.clipsToBounds = true
         revenueView.layer.cornerRadius = 10
         revenueView.backgroundColor = UIColor(named: "PrimaryGreen")
         expenseView.layer.cornerRadius = 10
