@@ -24,6 +24,7 @@ class SummaryCell: UICollectionViewCell {
     var selectedMonth = 0
     var todayYear = "0"
     var todayMonth = "0"
+    var picker: MonthYearPickerView = MonthYearPickerView()
     
     var viewModel: AccountBookListViewModel = AccountBookListViewModel()
     
@@ -50,9 +51,11 @@ class SummaryCell: UICollectionViewCell {
     }
     
     func addDatePicker() {
-        let picker = MonthYearPickerView(frame: CGRect(origin: CGPoint(x: 0, y: (bounds.height - 216) / 2), size: CGSize(width: bounds.width, height: 216)))
+        picker = MonthYearPickerView(frame: CGRect(origin: CGPoint(x: 0, y: (bounds.height - 216) / 2), size: CGSize(width: bounds.width, height: 216)))
         picker.minimumDate = Calendar.current.date(byAdding: .year, value: -10, to: Date())
         picker.maximumDate = Date()
+        
+        picker.date = getDate(viewModel.dateFilter)
         picker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         
         let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
@@ -80,9 +83,14 @@ class SummaryCell: UICollectionViewCell {
 //        print("-> viewModel.dateFilter: \(viewModel.dateFilter)")
 //        print(yearTextField.text?.components(separatedBy: "  "))
         yearTextField.resignFirstResponder()
-        
-        // 리스트 업데이트
-        
+    }
+    
+    private func getDate(_ str: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy년 MM월"
+        let date = dateFormatter.date(from: str)!
+        let cal = Calendar.current.date(byAdding: .month, value: 1, to: date)!
+        return cal
     }
     
     private func formatNumber(_ price: Int) -> String {

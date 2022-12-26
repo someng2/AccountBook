@@ -32,8 +32,8 @@ class AccountBookListViewController: UIViewController {
         viewModel.fetchAccountBooks()
         addFloatingButton()
         
-        emailCheck(nickname: "someng")
-        emailCheck(nickname: "som")
+//        emailCheck(nickname: "someng")
+//        emailCheck(nickname: "som")
     }
     
     private func configureCollectionView() {
