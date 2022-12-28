@@ -15,9 +15,9 @@ class NewAccountBookViewController: UIViewController{
     @IBOutlet weak var expenseButton: UIButton!
     @IBOutlet weak var revenueButton: UIButton!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var categoryView: UIView!
+    @IBOutlet weak var subcategoryView: UIView!
+    @IBOutlet weak var subcategoryLabel: UILabel!
     @IBOutlet weak var contentView: UIView!
-    
     @IBOutlet weak var contentLabel: UILabel!
     
     var expenseMode = true
@@ -32,7 +32,7 @@ class NewAccountBookViewController: UIViewController{
         
         let categoryTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleCategoryTap(sender:)))
         let contentTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleContentTap(sender:)))
-        categoryView.addGestureRecognizer(categoryTapGesture)
+        subcategoryView.addGestureRecognizer(categoryTapGesture)
         contentView.addGestureRecognizer(contentTapGesture)
         bind()
     }
@@ -43,10 +43,19 @@ class NewAccountBookViewController: UIViewController{
                 print("---> contents : \(contents)")
                 self.contentLabel.text = (contents.isEmpty ? "내용을 입력하세요." : contents)
             }.store(in: &subscriptions)
+        
+        vm.$subcategory
+            .sink { subcategory in
+                print("---> subcategory: \(subcategory)")
+                self.subcategoryLabel.text = subcategory
+            }.store(in: &subscriptions)
     }
     
     private func setupUI() {
         navigationItem.largeTitleDisplayMode = .never
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backButton.tintColor = UIColor(named: "SecondaryNavy")
+        navigationItem.backBarButtonItem = backButton
         
         priceTextField.text = "0"
         priceTextField.borderStyle = .none
@@ -67,6 +76,7 @@ class NewAccountBookViewController: UIViewController{
         datePicker.timeZone = .autoupdatingCurrent
         
         contentLabel.text = vm.accountBook.contents.isEmpty ? "내용을 입력하세요." : vm.accountBook.contents
+        subcategoryLabel.text = SubCategory.list[0].name
     }
     
     @IBAction func pressedExpenseButton(_ sender: Any) {
@@ -97,8 +107,11 @@ class NewAccountBookViewController: UIViewController{
     }
     
     @objc func handleCategoryTap(sender: UITapGestureRecognizer) {
-        if sender.view == categoryView {
-            print("category view !")
+        if sender.view == subcategoryView {
+            let sb = UIStoryboard(name: "NewAccountBook", bundle: nil)
+            let vc = sb.instantiateViewController(withIdentifier: "NewSubcategoryViewController") as! NewSubcategoryViewController
+            vc.vm = self.vm
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         
     }

@@ -11,7 +11,7 @@ import Combine
 final class NewAccountBookViewModel {
     @Published var accountBook: AccountBook
     
-    @Published var subcategory: String = ""
+    @Published var subcategory: String = SubCategory.list[0].name
     @Published var contents: String = ""
     
     var subscriptions = Set<AnyCancellable>()

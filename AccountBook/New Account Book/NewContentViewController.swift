@@ -17,10 +17,13 @@ class NewContentViewController: UIViewController {
         super.viewDidLoad()
         contentTextView.delegate = self
         setupUI()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "완료", style: .done, target: self, action: #selector(self.action(sender:)))
     }
     
     private func setupUI() {
+        let compeleteButtonItem = UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(self.action(sender:)))
+        compeleteButtonItem.tintColor = UIColor(named: "SecondaryNavy")
+        self.navigationItem.rightBarButtonItem = compeleteButtonItem
+        
         contentTextView.text = vm.contents.isEmpty ? "내용을 입력하세요." : vm.contents
         contentTextView.textColor = vm.contents.isEmpty ? UIColor.lightGray : .black
         contentTextView.layer.borderWidth = 2.0
@@ -31,8 +34,8 @@ class NewContentViewController: UIViewController {
     }
     
     @objc func action(sender: UIBarButtonItem) {
-        vm.contents = contentTextView.text
-//        print("---> accountBook: \(vm.accountBook)")
+        vm.contents = (contentTextView.text == "내용을 입력하세요.") ? "" : contentTextView.text
+        print("---> accountBook: \(vm.accountBook)")
         navigationController?.popViewController(animated: true)
     }
 }

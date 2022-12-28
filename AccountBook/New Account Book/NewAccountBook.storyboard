@@ -7,6 +7,7 @@
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -157,7 +158,7 @@
                                                                     <constraint firstAttribute="width" constant="120" id="sFO-Tz-8fJ"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l0O-GD-siP">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l0O-GD-siP" userLabel="SubCategory View">
                                                                 <rect key="frame" x="120" y="0.0" width="230" height="60"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="밥" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4eh-KA-HJ1">
@@ -291,7 +292,6 @@
                     </view>
                     <size key="freeformSize" width="390" height="830"/>
                     <connections>
-                        <outlet property="categoryView" destination="l0O-GD-siP" id="Vaz-Yt-L01"/>
                         <outlet property="contentLabel" destination="Kf6-14-1XW" id="WcN-dd-4rP"/>
                         <outlet property="contentView" destination="O9Q-rM-xC2" id="XKE-CC-YTn"/>
                         <outlet property="datePicker" destination="6bT-au-YMx" id="3iq-wo-IpR"/>
@@ -299,6 +299,8 @@
                         <outlet property="priceMode" destination="C8U-dh-TXm" id="5hP-6V-3Pr"/>
                         <outlet property="priceTextField" destination="5fB-Ev-FjW" id="oIu-H3-Fhp"/>
                         <outlet property="revenueButton" destination="2C9-90-qVR" id="0KN-ya-T7p"/>
+                        <outlet property="subcategoryLabel" destination="4eh-KA-HJ1" id="nbK-NT-sNk"/>
+                        <outlet property="subcategoryView" destination="l0O-GD-siP" id="GtN-J7-ypM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -340,8 +342,81 @@
             </objects>
             <point key="canvasLocation" x="573.84615384615381" y="-35.545023696682463"/>
         </scene>
+        <!--New Subcategory View Controller-->
+        <scene sceneID="3O7-up-Vil">
+            <objects>
+                <viewController storyboardIdentifier="NewSubcategoryViewController" id="8FZ-4t-Psk" customClass="NewSubcategoryViewController" customModule="AccountBook" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="p1O-cc-DRv">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YMT-KQ-cIE">
+                                <rect key="frame" x="0.0" y="47" width="390" height="763"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aeo-PR-i86">
+                                    <size key="itemSize" width="146" height="196"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SubCategoryCell" id="GmX-oZ-Gkk" customClass="SubCategoryCell" customModule="AccountBook" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="146" height="160"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="8iA-qf-wac">
+                                            <rect key="frame" x="0.0" y="0.0" width="146" height="160"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rice" translatesAutoresizingMaskIntoConstraints="NO" id="TZV-Uf-gMO">
+                                                    <rect key="frame" x="43" y="35" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="cdQ-0u-W2N"/>
+                                                        <constraint firstAttribute="height" constant="60" id="ns8-YR-92h"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="밥" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egb-jr-qpO">
+                                                    <rect key="frame" x="65.666666666666671" y="115" width="15" height="20.333333333333343"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="egb-jr-qpO" firstAttribute="centerX" secondItem="8iA-qf-wac" secondAttribute="centerX" id="7W6-0C-RvK"/>
+                                                <constraint firstItem="TZV-Uf-gMO" firstAttribute="centerY" secondItem="8iA-qf-wac" secondAttribute="centerY" constant="-15" id="UtK-vP-N6e"/>
+                                                <constraint firstItem="egb-jr-qpO" firstAttribute="top" secondItem="TZV-Uf-gMO" secondAttribute="bottom" constant="20" id="ciT-Oj-kIe"/>
+                                                <constraint firstItem="TZV-Uf-gMO" firstAttribute="centerX" secondItem="8iA-qf-wac" secondAttribute="centerX" id="zkQ-9y-xj4"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="146" height="160"/>
+                                        <connections>
+                                            <outlet property="iconImageView" destination="TZV-Uf-gMO" id="3lJ-03-KzC"/>
+                                            <outlet property="subCategoryLabel" destination="egb-jr-qpO" id="jbg-2t-fGF"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4BP-l2-AV2"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="4BP-l2-AV2" firstAttribute="trailing" secondItem="YMT-KQ-cIE" secondAttribute="trailing" id="4G0-co-KNn"/>
+                            <constraint firstItem="YMT-KQ-cIE" firstAttribute="leading" secondItem="4BP-l2-AV2" secondAttribute="leading" id="fk2-ny-asA"/>
+                            <constraint firstItem="4BP-l2-AV2" firstAttribute="bottom" secondItem="YMT-KQ-cIE" secondAttribute="bottom" id="q4G-PZ-nsV"/>
+                            <constraint firstItem="YMT-KQ-cIE" firstAttribute="top" secondItem="4BP-l2-AV2" secondAttribute="top" id="thU-Bd-q0f"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="YMT-KQ-cIE" id="ORZ-5P-WWb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fZi-hq-sWc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1290.7692307692307" y="-35.545023696682463"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="rice" width="512" height="512"/>
         <image name="rightArrow" width="512" height="512"/>
         <namedColor name="PrimaryRed">
             <color red="0.96470588235294119" green="0.31764705882352939" blue="0.11372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

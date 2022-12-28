@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3B1706A112A7C3E457B01A05 /* Pods_AccountBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABA34015DF8FF5919D5CA09 /* Pods_AccountBook.framework */; };
 		3BA85020CAF598B0ACE362A2 /* Pods_AccountBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7D704507DDE46B56FD40E6 /* Pods_AccountBookTests.framework */; };
+		3D2BC3F8295AC66600CE4AE6 /* NewSubcategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2BC3F7295AC66600CE4AE6 /* NewSubcategoryViewController.swift */; };
+		3D2BC3FA295AC9EF00CE4AE6 /* SubCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2BC3F9295AC9EF00CE4AE6 /* SubCategory.swift */; };
+		3D2BC3FC295ACF7E00CE4AE6 /* SubCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2BC3FB295ACF7E00CE4AE6 /* SubCategoryCell.swift */; };
 		3D39B77D292CF892007AE783 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D39B77C292CF892007AE783 /* AppDelegate.swift */; };
 		3D39B77F292CF892007AE783 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D39B77E292CF892007AE783 /* SceneDelegate.swift */; };
 		3D39B784292CF892007AE783 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D39B782292CF892007AE783 /* Main.storyboard */; };
@@ -51,6 +54,9 @@
 /* Begin PBXFileReference section */
 		1C89611A2D8B45BCF9CD4EFF /* Pods-AccountBook-AccountBookUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AccountBook-AccountBookUITests.release.xcconfig"; path = "Target Support Files/Pods-AccountBook-AccountBookUITests/Pods-AccountBook-AccountBookUITests.release.xcconfig"; sourceTree = "<group>"; };
 		3B17E897DE8D4FCFAAAE22AF /* Pods-AccountBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AccountBook.release.xcconfig"; path = "Target Support Files/Pods-AccountBook/Pods-AccountBook.release.xcconfig"; sourceTree = "<group>"; };
+		3D2BC3F7295AC66600CE4AE6 /* NewSubcategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSubcategoryViewController.swift; sourceTree = "<group>"; };
+		3D2BC3F9295AC9EF00CE4AE6 /* SubCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategory.swift; sourceTree = "<group>"; };
+		3D2BC3FB295ACF7E00CE4AE6 /* SubCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryCell.swift; sourceTree = "<group>"; };
 		3D39B779292CF892007AE783 /* AccountBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccountBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D39B77C292CF892007AE783 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D39B77E292CF892007AE783 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -171,6 +177,7 @@
 			children = (
 				3D39B7AC292CF8BF007AE783 /* AccountBook.swift */,
 				3D67F04F293633E500095700 /* Summary.swift */,
+				3D2BC3F9295AC9EF00CE4AE6 /* SubCategory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -193,6 +200,8 @@
 				3D653B91293C7FEC005365AC /* NewAccountBook.storyboard */,
 				3D653B93293C801A005365AC /* NewAccountBookViewController.swift */,
 				3D51CC1C293F7BFD005620C2 /* NewContentViewController.swift */,
+				3D2BC3F7295AC66600CE4AE6 /* NewSubcategoryViewController.swift */,
+				3D2BC3FB295ACF7E00CE4AE6 /* SubCategoryCell.swift */,
 				3D51CC1E293F84C3005620C2 /* NewAccountBookViewModel.swift */,
 			);
 			path = "New Account Book";
@@ -462,6 +471,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D2BC3FA295AC9EF00CE4AE6 /* SubCategory.swift in Sources */,
 				3DC7D1BE292D1B82008C5D7A /* AccountBookListCell.swift in Sources */,
 				3D39B7B0292CFE3E007AE783 /* AccountBookListViewController.swift in Sources */,
 				3D39B7AD292CF8BF007AE783 /* AccountBook.swift in Sources */,
@@ -469,9 +479,11 @@
 				3D653B94293C801A005365AC /* NewAccountBookViewController.swift in Sources */,
 				3DC7D1BC292D1706008C5D7A /* AccountBookListViewModel.swift in Sources */,
 				3D51CC1F293F84C3005620C2 /* NewAccountBookViewModel.swift in Sources */,
+				3D2BC3FC295ACF7E00CE4AE6 /* SubCategoryCell.swift in Sources */,
 				3D39B77F292CF892007AE783 /* SceneDelegate.swift in Sources */,
 				3D67F050293633E500095700 /* Summary.swift in Sources */,
 				3D39B7B3292D02C3007AE783 /* SummaryCell.swift in Sources */,
+				3D2BC3F8295AC66600CE4AE6 /* NewSubcategoryViewController.swift in Sources */,
 				3D51CC1D293F7BFD005620C2 /* NewContentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
