@@ -33,6 +33,10 @@ class AccountBookListViewController: UIViewController {
         addFloatingButton()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.loadFirebaseData(dateFilter: viewModel.dateFilter)
+    }
+    
     private func setupNavigationBar() {
         navigationItem.title = "가계부"
         let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)

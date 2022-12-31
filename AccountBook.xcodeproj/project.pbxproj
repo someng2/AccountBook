@@ -187,9 +187,9 @@
 			children = (
 				3D39B782292CF892007AE783 /* Main.storyboard */,
 				3D39B7AF292CFE3E007AE783 /* AccountBookListViewController.swift */,
-				3DC7D1BB292D1706008C5D7A /* AccountBookListViewModel.swift */,
 				3D39B7B2292D02C3007AE783 /* SummaryCell.swift */,
 				3DC7D1BD292D1B82008C5D7A /* AccountBookListCell.swift */,
+				3DC7D1BB292D1706008C5D7A /* AccountBookListViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";

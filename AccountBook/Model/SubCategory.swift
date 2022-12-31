@@ -14,7 +14,7 @@ struct SubCategory: Hashable{
 }
 
 extension SubCategory {
-    static let list = [
+    static let expenseList = [
         SubCategory(name: "쇼핑", icon: UIImage(named: "shopping")!),
         SubCategory(name: "문화생활", icon: UIImage(named: "movie")!),
         SubCategory(name: "운동", icon: UIImage(named: "sports")!),
@@ -29,6 +29,15 @@ extension SubCategory {
         SubCategory(name: "선물", icon: UIImage(named: "gift")!),
         SubCategory(name: "건강", icon: UIImage(named: "health")!),
         SubCategory(name: "저축", icon: UIImage(named: "saving")!),
+        SubCategory(name: "기타", icon: UIImage(named: "etc")!)
+    ]
+    static let revenueList = [
+        SubCategory(name: "용돈", icon: UIImage(named: "allowance")!),
+        SubCategory(name: "월급", icon: UIImage(named: "pay")!),
+        SubCategory(name: "임대료", icon: UIImage(named: "rent")!),
+        SubCategory(name: "주식", icon: UIImage(named: "stock")!),
+        SubCategory(name: "적금", icon: UIImage(named: "installment saving")!),
+        SubCategory(name: "기타", icon: UIImage(named: "etc")!)
     ]
     
     // TODO: 지출 list, 수입 list 따로 저장

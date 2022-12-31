@@ -132,6 +132,7 @@
                                                             </view>
                                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="6bT-au-YMx">
                                                                 <rect key="frame" x="120" y="0.0" width="230" height="60"/>
+                                                                <locale key="locale" localeIdentifier="ko_KR"/>
                                                             </datePicker>
                                                         </subviews>
                                                         <constraints>

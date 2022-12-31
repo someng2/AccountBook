@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 
+
 class NewAccountBookViewController: UIViewController{
     
     @IBOutlet weak var priceTextField: UITextField!
@@ -20,7 +21,6 @@ class NewAccountBookViewController: UIViewController{
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var contentLabel: UILabel!
     
-    var expenseMode = true
     var vm: NewAccountBookViewModel = NewAccountBookViewModel()
     var subscriptions = Set<AnyCancellable>()
     
@@ -36,8 +36,13 @@ class NewAccountBookViewController: UIViewController{
         contentView.addGestureRecognizer(contentTapGesture)
         bind()
     }
-    
+
     private func bind() {
+        vm.$expenseMode
+            .sink { mode in
+                self.updateUI(mode)
+            }.store(in: &subscriptions)
+        
         vm.$contents
             .sink { contents in
                 print("---> contents : \(contents)")
@@ -56,6 +61,10 @@ class NewAccountBookViewController: UIViewController{
         let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backButton.tintColor = UIColor(named: "SecondaryNavy")
         navigationItem.backBarButtonItem = backButton
+        
+        let saveButtonItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(self.saveAction(sender:)))
+        saveButtonItem.tintColor = UIColor(named: "SecondaryNavy")
+        self.navigationItem.rightBarButtonItem = saveButtonItem
         
         priceTextField.text = "0"
         priceTextField.borderStyle = .none
@@ -76,20 +85,28 @@ class NewAccountBookViewController: UIViewController{
         datePicker.timeZone = .autoupdatingCurrent
         
         contentLabel.text = vm.accountBook.contents.isEmpty ? "내용을 입력하세요." : vm.accountBook.contents
-        subcategoryLabel.text = SubCategory.list[0].name
+        subcategoryLabel.text = vm.expenseMode ? SubCategory.expenseList[0].name : SubCategory.revenueList[0].name
     }
     
     @IBAction func pressedExpenseButton(_ sender: Any) {
-        expenseMode = true
-        updateUI()
+        vm.expenseMode = true
     }
     
     @IBAction func pressedRevenueButton(_ sender: Any) {
-        expenseMode = false
-        updateUI()
+        vm.expenseMode = false
     }
     
-    private func updateUI() {
+    @objc func saveAction(sender: UIBarButtonItem) {
+        let priceText = priceTextField.text?.replacingOccurrences(of: ",", with: "", options: NSString.CompareOptions.literal, range: nil)
+        if let price = Int(priceText!) {
+            vm.accountBook.price = price
+        }
+        vm.accountBook.date = datePicker.date.convertedDate
+        vm.saveNewData()
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func updateUI(_ expenseMode: Bool) {
         priceMode.backgroundColor = expenseMode ? UIColor(named: "PrimaryRed") : UIColor(named: "PrimaryBlue")
         expenseButton.layer.borderWidth = expenseMode ? 2 : 1
         expenseButton.tintColor = expenseMode ? UIColor(named: "PrimaryRed") : .gray
@@ -100,6 +117,8 @@ class NewAccountBookViewController: UIViewController{
         revenueButton.tintColor = expenseMode ? .gray : UIColor(named: "PrimaryBlue")
         revenueButton.layer.borderColor = expenseMode ? UIColor(ciColor: .gray).cgColor : UIColor(named: "PrimaryBlue")?.cgColor
         revenueButton.titleLabel?.font = .systemFont(ofSize: 16, weight: expenseMode ? .regular : .bold)
+        
+        vm.subcategory = expenseMode ? SubCategory.expenseList[0].name : SubCategory.revenueList[0].name
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -177,3 +196,24 @@ extension NewAccountBookViewController: UITextFieldDelegate {
         return true
     }
 }
+
+extension Date {
+    var convertedDate: String {
+        let dateFormatter = DateFormatter()
+
+        let dateFormat = "yyyy.MM.dd HH:mm"
+        dateFormatter.dateFormat = dateFormat
+        let formattedDate = dateFormatter.string(from: self)
+
+        dateFormatter.locale = NSLocale.current
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
+
+        dateFormatter.dateFormat = dateFormat
+        if let sourceDate = dateFormatter.date(from: formattedDate) {
+            return dateFormatter.string(from: sourceDate)
+        }
+
+        return ""
+    }
+}
+

@@ -12,9 +12,10 @@ class NewSubcategoryViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var vm: NewAccountBookViewModel!
-    let list: [SubCategory] = SubCategory.list
+    
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
-    var chosenIndex: IndexPath!
+    var chosenIndex: IndexPath = IndexPath(index: 0)
+    var list: [SubCategory] = SubCategory.revenueList
     
     typealias Item = SubCategory
     enum Section {
@@ -23,7 +24,13 @@ class NewSubcategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureMode()
         configureCollectionView()
+        
+    }
+    
+    private func configureMode() {
+        list = vm.expenseMode ? SubCategory.expenseList : SubCategory.revenueList
     }
     
     private func configureCollectionView() {

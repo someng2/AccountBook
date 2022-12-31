@@ -11,18 +11,12 @@ import FirebaseFirestore
 final class AccountBookListViewModel {
     
     @Published var list: [AccountBook] = []
-    //    @Published var dic: [String: [AccountBook]] = [:]
     @Published var summary: Summary = Summary.default
     @Published var dateFilter: String = ""
-    // 날짜 정렬
-    //    var keys: [String] {
-    //        return dic.keys.sorted { $0 > $1 }
-    //    }
     
     let db = Firestore.firestore()
     
     func fetchAccountBooks() {
-        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월"
         self.dateFilter = formatter.string(from: Date())
@@ -32,8 +26,7 @@ final class AccountBookListViewModel {
 //                $0.monthlyIdentifier == self.dateFilter
 //            }.sorted(by: { $0.hourIdentifier > $1.hourIdentifier })
 //        }
-//        
-//        self.summary = Summary.default
+//
     }
     
     func fetchDateFilter() {
@@ -52,7 +45,6 @@ final class AccountBookListViewModel {
             .collection("AccountBook")
         
         ref.getDocuments() { (querySnapshot, err) in
-//            print("---> getDocuments")
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
@@ -73,7 +65,7 @@ final class AccountBookListViewModel {
         formatter.dateFormat = "yyyy.MM.dd HH:mm"
         if let date = formatter.date(from: origin) {
             formatter.dateFormat = "yyyy년 MM월"
-            print("---> formatDate: \(formatter.string(from: date))")
+//            print("---> formatDate: \(formatter.string(from: date))")
             return formatter.string(from: date)
         } else {
             print("formatDate error!")
