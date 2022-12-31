@@ -7,6 +7,9 @@
 
 import UIKit
 import Combine
+import DTZFloatingActionButton
+import Firebase
+import FirebaseFirestore
 
 class AccountBookListViewController: UIViewController {
     
@@ -23,9 +26,22 @@ class AccountBookListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         bind()
         configureCollectionView()
-        viewModel.fetchAccountBooks()
+        viewModel.fetchDateFilter()
+        addFloatingButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.loadFirebaseData(dateFilter: viewModel.dateFilter)
+    }
+    
+    private func setupNavigationBar() {
+        navigationItem.title = "가계부"
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backButton.tintColor = UIColor(named: "SecondaryNavy")
+        navigationItem.backBarButtonItem = backButton
     }
     
     private func configureCollectionView() {
@@ -44,23 +60,32 @@ class AccountBookListViewController: UIViewController {
         collectionView.collectionViewLayout = layout()
     }
     
+    private func addFloatingButton() {
+        let actionButton = DTZFloatingActionButton()
+        actionButton.handler = {
+            button in
+            let sb = UIStoryboard(name: "NewAccountBook", bundle: nil)
+            let vc = sb.instantiateViewController(withIdentifier: "NewAccountBookViewController") as! NewAccountBookViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        actionButton.isScrollView = true
+        actionButton.buttonColor = UIColor(named: "PrimaryBlue")!
+        self.view.addSubview(actionButton)
+    }
+    
     private func bind() {
         
         viewModel.$dateFilter
             .receive(on: RunLoop.main)
             .sink { filter in
                 print("---> new date filter: \(filter)")
-                self.viewModel.list = AccountBook.tempList.filter {
-                    $0.monthlyIdentifier == filter
-                }.sorted(by: { $0.hourIdentifier > $1.hourIdentifier })
-                
-                print("---> list date filter: \(self.viewModel.list)")
+                self.viewModel.loadFirebaseData(dateFilter: filter)
             }.store(in: &subscriptions)
         
         viewModel.$summary
             .receive(on: RunLoop.main)
             .sink { summary in
-                print("---> summary = \(summary)")
+//                print("---> summary = \(summary)")
                 self.applySnapshot(items: [summary], section: .summary)
             }.store(in: &subscriptions)
         
@@ -120,6 +145,5 @@ class AccountBookListViewController: UIViewController {
         
         return UICollectionViewCompositionalLayout(section: section)
     }
-    
     
 }
