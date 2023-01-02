@@ -100,10 +100,33 @@ class NewAccountBookViewController: UIViewController{
         let priceText = priceTextField.text?.replacingOccurrences(of: ",", with: "", options: NSString.CompareOptions.literal, range: nil)
         if let price = Int(priceText!) {
             vm.accountBook.price = price
+            if price == 0 {
+                showToast(message: "가격을 입력해주세요!")
+                return
+            }
         }
         vm.accountBook.date = datePicker.date.convertedDate
         vm.saveNewData()
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func showToast(message : String, font: UIFont = UIFont.systemFont(ofSize: 15.0, weight: .bold)) {
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 140, y: self.view.frame.size.height-120, width: 280, height: 50))
+        toastLabel.backgroundColor = UIColor(named: "PrimaryBlue")
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 3, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+        
     }
     
     private func updateUI(_ expenseMode: Bool) {

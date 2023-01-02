@@ -10,6 +10,7 @@ import UIKit
 class AccountBookListCell: UICollectionViewCell {
     
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var circleView: UIView!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var contentsLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -22,6 +23,21 @@ class AccountBookListCell: UICollectionViewCell {
         self.priceLabel.text = "\(formatNumber(item.price))원"
         self.priceLabel.textColor = item.category == "수입" ? UIColor(named: "PrimaryGreen") : UIColor(named: "PrimaryRed")
         view.layer.cornerRadius = 15
+        self.iconImageView.image = getIcon(item)
+        self.iconImageView.tintColor = UIColor(named: "SecondaryNavy")
+        self.circleView.layer.cornerRadius = self.circleView.layer.bounds.width / 2
+        self.circleView.clipsToBounds = true
+        self.circleView.backgroundColor = .white
+    }
+    
+    private func getIcon(_ item: AccountBook) -> UIImage {
+        if item.category == "지출" {
+            return SubCategory.expenseList.filter { $0.name == item.subcategory
+            }[0].icon
+        } else {
+            return SubCategory.revenueList.filter { $0.name == item.subcategory
+            }[0].icon
+        }
     }
     
     private func formatNumber(_ price: Int) -> String {
@@ -42,4 +58,5 @@ class AccountBookListCell: UICollectionViewCell {
 //
 //        return result
 //    }
+
 }
