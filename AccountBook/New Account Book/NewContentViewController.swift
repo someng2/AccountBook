@@ -26,10 +26,10 @@ class NewContentViewController: UIViewController {
         
         contentTextView.text = vm.contents.isEmpty ? "내용을 입력하세요." : vm.contents
         contentTextView.textColor = vm.contents.isEmpty ? UIColor.lightGray : .black
-        contentTextView.layer.borderWidth = 2.0
+        contentTextView.layer.borderWidth = 3.0
         contentTextView.layer.cornerRadius = 15
         contentTextView.contentInset = .init(top: 10, left: 10, bottom: 10, right: 10)
-        contentTextView.layer.borderColor = UIColor(named: "SecondaryNavy")?.cgColor
+        contentTextView.layer.borderColor = UIColor(named: "SecondaryOrange")?.cgColor
         contentTextView.font = .systemFont(ofSize: 18, weight: .regular)
     }
     
