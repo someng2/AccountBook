@@ -16,6 +16,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var errorMessageLabel: UILabel!
     
+    var viewModel = LoginViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -51,15 +53,16 @@ class LoginViewController: UIViewController {
                 print("로그인 실패")
                 print(error.debugDescription)
             }
-            
         }
+        
     }
     
     
     @IBAction func signUpButtonTapped(_ sender: Any) {
-        guard let vc = self.storyboard?.instantiateViewController(identifier: "SignUpViewController") else {
+        guard let vc = self.storyboard?.instantiateViewController(identifier: "SignUpViewController") as? SignUpViewController else {
             return
         }
+        vc.viewModel = self.viewModel
         self.present(vc, animated:true)
     }
     

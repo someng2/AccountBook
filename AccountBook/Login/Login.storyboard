@@ -171,22 +171,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJI-q3-8ny">
-                                <rect key="frame" x="111" y="542" width="153" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="Link 객체 삭제하기"/>
-                                <connections>
-                                    <action selector="deleteBtnTapped:" destination="1GG-qr-Zg5" eventType="touchUpInside" id="Vbw-1Q-W8L"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임을 입력해주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mXU-Y9-eNw">
                                 <rect key="frame" x="34" y="307" width="129" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" systemColor="systemRedColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="비밀번호(최소 4자 이상)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HIe-Cv-KlQ">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="비밀번호(최소 6자 이상)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HIe-Cv-KlQ">
                                 <rect key="frame" x="28" y="352" width="319" height="60"/>
                                 <color key="backgroundColor" name="FaintOrange"/>
                                 <constraints>
@@ -225,16 +216,26 @@
                                     <action selector="signUpButtonTapped:" destination="1GG-qr-Zg5" eventType="touchUpInside" id="UY0-ME-Psi"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJI-q3-8ny">
+                                <rect key="frame" x="111" y="583" width="153" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Link 객체 삭제하기"/>
+                                <connections>
+                                    <action selector="deleteBtnTapped:" destination="1GG-qr-Zg5" eventType="touchUpInside" id="Vbw-1Q-W8L"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gpz-Hw-AVj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="pJI-q3-8ny" firstAttribute="centerX" secondItem="gpz-Hw-AVj" secondAttribute="centerX" id="0S7-DI-MDi"/>
                             <constraint firstItem="hXa-OB-B9P" firstAttribute="centerX" secondItem="gpz-Hw-AVj" secondAttribute="centerX" id="5qb-Du-uXf"/>
                             <constraint firstItem="hXa-OB-B9P" firstAttribute="leading" secondItem="gpz-Hw-AVj" secondAttribute="leading" constant="28" id="8d9-uP-5um"/>
                             <constraint firstItem="HIe-Cv-KlQ" firstAttribute="top" secondItem="KSV-tk-Sqr" secondAttribute="bottom" constant="55" id="AcJ-f1-qxY"/>
                             <constraint firstItem="eka-NX-I5M" firstAttribute="leading" secondItem="gpz-Hw-AVj" secondAttribute="leading" constant="34" id="BTQ-aZ-sIN"/>
                             <constraint firstItem="sey-AO-8yW" firstAttribute="leading" secondItem="gpz-Hw-AVj" secondAttribute="leading" constant="28" id="GN8-m6-Bz1"/>
                             <constraint firstItem="mXU-Y9-eNw" firstAttribute="leading" secondItem="eka-NX-I5M" secondAttribute="leading" id="LbC-Ma-Ctk"/>
+                            <constraint firstItem="sey-AO-8yW" firstAttribute="top" secondItem="pJI-q3-8ny" secondAttribute="bottom" constant="50" id="O8Z-Ek-enI"/>
                             <constraint firstItem="HJC-eq-dPO" firstAttribute="top" secondItem="gpz-Hw-AVj" secondAttribute="top" constant="40" id="P8b-cg-87O"/>
                             <constraint firstItem="hBH-It-9hQ" firstAttribute="top" secondItem="HJC-eq-dPO" secondAttribute="bottom" constant="10" id="R12-FQ-HnL"/>
                             <constraint firstItem="eka-NX-I5M" firstAttribute="top" secondItem="HJC-eq-dPO" secondAttribute="bottom" constant="15" id="SGF-e1-28K"/>

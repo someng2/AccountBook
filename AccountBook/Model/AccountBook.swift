@@ -44,7 +44,8 @@ extension AccountBook: DocumentSerializable {
               let subcategory = dictionary["subcategory"] as? String,
               let contents = dictionary["contents"] as? String,
               let price = dictionary["subcategory"] as? Int,
-              let date = dictionary["date"] as? String else { return nil }
+              let date = dictionary["date"] as? String
+        else { return nil }
         
         self.init(category: category, subcategory: subcategory, contents: contents, price: price, date: date)
     }

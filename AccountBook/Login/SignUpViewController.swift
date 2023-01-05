@@ -25,6 +25,7 @@ class SignUpViewController: UIViewController {
     
     var subscriptions = Set<AnyCancellable>()
     var emailAuthCompleted = false
+    var viewModel: LoginViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,10 +105,10 @@ class SignUpViewController: UIViewController {
             return
         }
         
-        guard let nick = nicknameTextField.text else {
+        guard let nickname = nicknameTextField.text else {
             return
         }
-        if nick.isEmpty {
+        if nickname.isEmpty {
             updateErrorMessage(label: nickErrorLabel, isError: true, message: "닉네임을 입력해주세요.")
             return
         }
@@ -119,8 +120,8 @@ class SignUpViewController: UIViewController {
             updateErrorMessage(label: pwErrorLabel, isError: true, message: "비밀번호를 입력해주세요.")
             return
         }
-        if pw.count < 4 {
-            updateErrorMessage(label: pwErrorLabel, isError: true, message: "최소 4자 이상의 비밀번호를 입력해주세요.")
+        if pw.count < 6 {
+            updateErrorMessage(label: pwErrorLabel, isError: true, message: "최소 6자 이상의 비밀번호를 입력해주세요.")
             return
         }
         if pwDouble.isEmpty {
@@ -132,7 +133,6 @@ class SignUpViewController: UIViewController {
             return
         }
         
-        
 //        Auth.auth().signIn(withEmail: email, link: UserDefaults.standard.link) { [weak self] result, error in
 //            if let error = error {
 //                print("email auth error \"\(error.localizedDescription)\"")
@@ -140,17 +140,10 @@ class SignUpViewController: UIViewController {
 //            }
 //            print("---> sign In: \(result)")
 //        }
+        viewModel.email = email
+        viewModel.nickname = nickname
+        viewModel.saveNewUser(email: email, pw: pw)
         
-        Auth.auth().createUser(withEmail: email, password: pw) {(result, error) in
-            if let error = error {
-                print("createUser error \"\(error.localizedDescription)\"")
-                return
-            }
-            guard let user = result?.user else {
-                return
-            }
-            print("---> New user's uid = \(user.uid)")
-        }
     }
     
     @IBAction func emailAuthButtonTapped(_ sender: Any) {
