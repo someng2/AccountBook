@@ -30,7 +30,6 @@ class AccountBookListViewController: UIViewController {
         bind()
         configureCollectionView()
         viewModel.getUid()
-//        viewModel.fetchDateFilter()
         addFloatingButton()
     }
     
@@ -43,6 +42,7 @@ class AccountBookListViewController: UIViewController {
         let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backButton.tintColor = UIColor(named: "SecondaryNavy")
         navigationItem.backBarButtonItem = backButton
+        
         self.navigationItem.setHidesBackButton(true, animated: true)
         
         let logOutImage = UIImage(named: "logout")

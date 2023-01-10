@@ -62,7 +62,7 @@ class NewAccountBookViewController: UIViewController{
         backButton.tintColor = UIColor(named: "SecondaryNavy")
         navigationItem.backBarButtonItem = backButton
         
-        let saveButtonItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(self.saveAction(sender:)))
+        let saveButtonItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(self.saveButtonTapped(sender:)))
         saveButtonItem.tintColor = UIColor(named: "SecondaryNavy")
         self.navigationItem.rightBarButtonItem = saveButtonItem
         
@@ -96,7 +96,7 @@ class NewAccountBookViewController: UIViewController{
         vm.expenseMode = false
     }
     
-    @objc func saveAction(sender: UIBarButtonItem) {
+    @objc func saveButtonTapped(sender: UIBarButtonItem) {
         let priceText = priceTextField.text?.replacingOccurrences(of: ",", with: "", options: NSString.CompareOptions.literal, range: nil)
         if let price = Int(priceText!) {
             vm.accountBook.price = price
@@ -105,6 +105,11 @@ class NewAccountBookViewController: UIViewController{
                 return
             }
         }
+        let contents = vm.accountBook.contents
+        if contents.isEmpty {
+            showToast(message: "내용을 입력해주세요!")
+            return
+        }
         vm.accountBook.date = datePicker.date.convertedDate
         vm.saveNewData()
         self.navigationController?.popViewController(animated: true)
@@ -112,7 +117,7 @@ class NewAccountBookViewController: UIViewController{
     
     private func showToast(message : String, font: UIFont = UIFont.systemFont(ofSize: 15.0, weight: .bold)) {
         let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 140, y: self.view.frame.size.height-120, width: 280, height: 50))
-        toastLabel.backgroundColor = UIColor(named: "PrimaryBlue")
+        toastLabel.backgroundColor = UIColor(named: "SecondaryOrange")
         toastLabel.textColor = UIColor.white
         toastLabel.font = font
         toastLabel.textAlignment = .center;
