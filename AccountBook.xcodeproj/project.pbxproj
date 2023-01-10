@@ -341,10 +341,10 @@
 			};
 			buildConfigurationList = 3D39B774292CF892007AE783 /* Build configuration list for PBXProject "AccountBook" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
+				ko,
 				Base,
 			);
 			mainGroup = 3D39B770292CF892007AE783;

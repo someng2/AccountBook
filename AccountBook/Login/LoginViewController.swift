@@ -29,6 +29,7 @@ class LoginViewController: UIViewController {
         pwTextField.layer.cornerRadius = 15
         logInButton.layer.cornerRadius = 30
         signUpButton.layer.cornerRadius = 30
+        self.navigationItem.setHidesBackButton(true, animated: true)
     }
     
     @IBAction func logInButtonTapped(_ sender: Any) {
@@ -47,7 +48,15 @@ class LoginViewController: UIViewController {
         Auth.auth().signIn(withEmail: email, password: pw) {authResult, error in
             if authResult != nil {
                 self.errorMessageLabel.text = ""
-                print("로그인 성공")
+                print("로그인 성공! uid = \(String(describing: authResult?.user.uid))")
+                // Save the email locally so you don't need to ask the user for it again
+                // if they open the link on the same device.
+                UserDefaults.standard.set(authResult?.user.uid, forKey: "Uid")
+                print("userDeaults: \(UserDefaults.standard.dictionaryRepresentation())")
+                
+                let sb = UIStoryboard(name: "Main", bundle: nil)
+                let vc = sb.instantiateViewController(withIdentifier: "AccountBookListViewController") as! AccountBookListViewController
+                self.navigationController?.pushViewController(vc, animated: true)
             } else {
                 self.errorMessageLabel.text = "이메일과 비밀번호를 다시 확인해주세요."
                 print("로그인 실패")

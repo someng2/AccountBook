@@ -13,6 +13,7 @@ final class AccountBookListViewModel {
     @Published var list: [AccountBook] = []
     @Published var summary: Summary = Summary.default
     @Published var dateFilter: String = ""
+    @Published var uid: String = ""
     
     let db = Firestore.firestore()
     
@@ -29,6 +30,14 @@ final class AccountBookListViewModel {
 //
     }
     
+    func getUid() {
+        if let uid = UserDefaults.standard.string(forKey: "Uid") {
+            self.uid = uid
+        } else {
+            print("uid 없음!")
+        }
+    }
+    
     func fetchDateFilter() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월"
@@ -41,7 +50,7 @@ final class AccountBookListViewModel {
         formatter.dateFormat = "yyyy년 MM월"
         
         let ref = db
-            .collection("User").document("user1")
+            .collection("User").document(self.uid)
             .collection("AccountBook")
         
         ref.getDocuments() { (querySnapshot, err) in

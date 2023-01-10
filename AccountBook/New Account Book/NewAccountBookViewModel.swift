@@ -17,6 +17,7 @@ final class NewAccountBookViewModel {
     
     var subscriptions = Set<AnyCancellable>()
     let db = Firestore.firestore()
+    var uid: String = ""
     
     init() {
         accountBook = AccountBook(category: "", subcategory: "", contents: "", price: 0, date: "")
@@ -37,7 +38,7 @@ final class NewAccountBookViewModel {
     func saveNewData() {
         let data = self.accountBook
         let documentID = "\(data.id)"
-        db.collection("User").document("user1").collection("AccountBook").document(documentID)
+        db.collection("User").document(uid).collection("AccountBook").document(documentID)
             .setData([
                 "category" : data.category,
                 "subcategory" : data.subcategory,
