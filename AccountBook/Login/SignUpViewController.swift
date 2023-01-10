@@ -86,7 +86,9 @@ class SignUpViewController: UIViewController {
     }
     
     private func resetErrorLabel() {
-        emailErrorLabel.text = ""
+        if !emailAuthCompleted {
+            emailErrorLabel.text = ""
+        }
         nickErrorLabel.text = ""
         pwErrorLabel.text = ""
     }
@@ -143,7 +145,7 @@ class SignUpViewController: UIViewController {
         viewModel.email = email
         viewModel.nickname = nickname
         viewModel.saveNewUser(email: email, pw: pw)
-        
+        self.dismiss(animated: true)
     }
     
     @IBAction func emailAuthButtonTapped(_ sender: Any) {
@@ -179,10 +181,8 @@ class SignUpViewController: UIViewController {
                 return
             } else {
                 print("이메일 전송완료!")
-                // Save the email locally so you don't need to ask the user for it again
-                // if they open the link on the same device.
-                UserDefaults.standard.set(email, forKey: "Email")
-                self.updateErrorMessage(label: self.emailErrorLabel, isError: false, message: "인증 메일을 확인해주세요.")
+                
+                self.updateErrorMessage(label: self.emailErrorLabel, isError: false, message: "인증 메일을 확인해주세요.\n(메일이 오지 않을 시, 스팸 메일함 확인)")
             }
         }
     }

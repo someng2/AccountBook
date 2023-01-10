@@ -29,7 +29,8 @@ class AccountBookListViewController: UIViewController {
         setupNavigationBar()
         bind()
         configureCollectionView()
-        viewModel.fetchDateFilter()
+        viewModel.getUid()
+//        viewModel.fetchDateFilter()
         addFloatingButton()
     }
     
@@ -38,10 +39,23 @@ class AccountBookListViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        navigationItem.title = "가계부"
+        navigationItem.title = "살림의 왕 🤓"
         let backButton = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backButton.tintColor = UIColor(named: "SecondaryNavy")
         navigationItem.backBarButtonItem = backButton
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        
+        let logOutImage = UIImage(named: "logout")
+        let logOutButton = UIBarButtonItem(image: logOutImage, style: .plain, target: self, action: #selector(logOutButtonTapped))
+        logOutButton.tintColor = .black
+        self.navigationItem.rightBarButtonItem = logOutButton
+    }
+    
+    @objc func logOutButtonTapped() {
+        UserDefaults.standard.removeObject(forKey: "Uid")
+        let sb = UIStoryboard(name: "Login", bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     private func configureCollectionView() {
@@ -66,6 +80,7 @@ class AccountBookListViewController: UIViewController {
             button in
             let sb = UIStoryboard(name: "NewAccountBook", bundle: nil)
             let vc = sb.instantiateViewController(withIdentifier: "NewAccountBookViewController") as! NewAccountBookViewController
+            vc.vm.uid = self.viewModel.uid
             self.navigationController?.pushViewController(vc, animated: true)
         }
         actionButton.isScrollView = true
@@ -74,6 +89,13 @@ class AccountBookListViewController: UIViewController {
     }
     
     private func bind() {
+        
+        viewModel.$uid
+            .receive(on: RunLoop.main)
+            .sink { uid in
+                print("---> uid = \(uid)")
+                self.viewModel.fetchDateFilter()
+            }.store(in: &subscriptions)
         
         viewModel.$dateFilter
             .receive(on: RunLoop.main)
