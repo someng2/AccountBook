@@ -20,11 +20,11 @@ class NewContentViewController: UIViewController {
     }
     
     private func setupUI() {
-        let compeleteButtonItem = UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(self.action(sender:)))
+        let compeleteButtonItem = UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(self.typeFinished(sender:)))
         compeleteButtonItem.tintColor = UIColor(named: "SecondaryNavy")
         self.navigationItem.rightBarButtonItem = compeleteButtonItem
         
-        contentTextView.text = vm.contents.isEmpty ? "내용을 입력하세요." : vm.contents
+        contentTextView.text = vm.contents.isEmpty ? "내용을 입력하세요 (12자 이내)" : vm.contents
         contentTextView.textColor = vm.contents.isEmpty ? UIColor.lightGray : .black
         contentTextView.layer.borderWidth = 3.0
         contentTextView.layer.cornerRadius = 15
@@ -33,12 +33,36 @@ class NewContentViewController: UIViewController {
         contentTextView.font = .systemFont(ofSize: 18, weight: .regular)
     }
     
-    @objc func action(sender: UIBarButtonItem) {
-        vm.contents = (contentTextView.text == "내용을 입력하세요.") ? "" : contentTextView.text
+    @objc func typeFinished(sender: UIBarButtonItem) {
+        if contentTextView.text.count > 12 {
+            showToast(message: "12자 이내의 내용을 입력해주세요!")
+            return
+        }
+        
+        vm.contents = (contentTextView.text == "내용을 입력하세요 (12자 이내)") ? "" : contentTextView.text
         print("---> accountBook: \(vm.accountBook)")
         navigationController?.popViewController(animated: true)
     }
+    
+    private func showToast(message : String, font: UIFont = UIFont.systemFont(ofSize: 15.0, weight: .bold)) {
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 140, y: self.view.frame.size.height-120, width: 280, height: 50))
+        toastLabel.backgroundColor = UIColor(named: "SecondaryOrange")
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 3, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
 }
+
 
 extension NewContentViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -52,7 +76,7 @@ extension NewContentViewController: UITextViewDelegate {
     // UITextView의 placeholder
     func textViewDidEndEditing(_ textView: UITextView) {
         if contentTextView.text.isEmpty {
-            contentTextView.text = "내용을 입력하세요"
+            contentTextView.text = "내용을 입력하세요 (12자 이내)"
             contentTextView.textColor = UIColor.lightGray
         }
     }

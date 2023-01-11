@@ -28,6 +28,9 @@
 		3D39B7B3292D02C3007AE783 /* SummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D39B7B2292D02C3007AE783 /* SummaryCell.swift */; };
 		3D51CC1D293F7BFD005620C2 /* NewContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D51CC1C293F7BFD005620C2 /* NewContentViewController.swift */; };
 		3D51CC1F293F84C3005620C2 /* NewAccountBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D51CC1E293F84C3005620C2 /* NewAccountBookViewModel.swift */; };
+		3D557D09296D58CE00FCABE1 /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D557D08296D58CE00FCABE1 /* Detail.storyboard */; };
+		3D557D0B296D58D900FCABE1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D557D0A296D58D900FCABE1 /* DetailViewController.swift */; };
+		3D557D0D296D593500FCABE1 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D557D0C296D593500FCABE1 /* DetailViewModel.swift */; };
 		3D63E7602963C38A00CD742E /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D63E75F2963C38A00CD742E /* Login.storyboard */; };
 		3D63E7622963C3A300CD742E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D63E7612963C3A300CD742E /* LoginViewController.swift */; };
 		3D653B92293C7FEC005365AC /* NewAccountBook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D653B91293C7FEC005365AC /* NewAccountBook.storyboard */; };
@@ -83,6 +86,9 @@
 		3D39B7B2292D02C3007AE783 /* SummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCell.swift; sourceTree = "<group>"; };
 		3D51CC1C293F7BFD005620C2 /* NewContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContentViewController.swift; sourceTree = "<group>"; };
 		3D51CC1E293F84C3005620C2 /* NewAccountBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountBookViewModel.swift; sourceTree = "<group>"; };
+		3D557D08296D58CE00FCABE1 /* Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
+		3D557D0A296D58D900FCABE1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		3D557D0C296D593500FCABE1 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		3D63E75F2963C38A00CD742E /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		3D63E7612963C3A300CD742E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3D653B91293C7FEC005365AC /* NewAccountBook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewAccountBook.storyboard; sourceTree = "<group>"; };
@@ -159,6 +165,7 @@
 				3D39B77E292CF892007AE783 /* SceneDelegate.swift */,
 				3D63E75E2963C37000CD742E /* Login */,
 				3D39B7B1292D028B007AE783 /* Home */,
+				3D557D07296D58B000FCABE1 /* Detail */,
 				3D653B95293C8024005365AC /* New Account Book */,
 				3D39B7AE292CFA08007AE783 /* Model */,
 				3D39B785292CF893007AE783 /* Assets.xcassets */,
@@ -206,6 +213,16 @@
 				3DC7D1BB292D1706008C5D7A /* AccountBookListViewModel.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		3D557D07296D58B000FCABE1 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				3D557D08296D58CE00FCABE1 /* Detail.storyboard */,
+				3D557D0A296D58D900FCABE1 /* DetailViewController.swift */,
+				3D557D0C296D593500FCABE1 /* DetailViewModel.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		3D63E75E2963C37000CD742E /* Login */ = {
@@ -368,6 +385,7 @@
 				3D653B92293C7FEC005365AC /* NewAccountBook.storyboard in Resources */,
 				3D63E7602963C38A00CD742E /* Login.storyboard in Resources */,
 				3DEA1ED629437FDE0059F6C7 /* GoogleService-Info.plist in Resources */,
+				3D557D09296D58CE00FCABE1 /* Detail.storyboard in Resources */,
 				3D39B786292CF893007AE783 /* Assets.xcassets in Resources */,
 				3D39B784292CF892007AE783 /* Main.storyboard in Resources */,
 			);
@@ -500,6 +518,7 @@
 				3D2BC3FA295AC9EF00CE4AE6 /* SubCategory.swift in Sources */,
 				3DC7D1BE292D1B82008C5D7A /* AccountBookListCell.swift in Sources */,
 				3D39B7B0292CFE3E007AE783 /* AccountBookListViewController.swift in Sources */,
+				3D557D0D296D593500FCABE1 /* DetailViewModel.swift in Sources */,
 				3D63E7622963C3A300CD742E /* LoginViewController.swift in Sources */,
 				3D39B7AD292CF8BF007AE783 /* AccountBook.swift in Sources */,
 				3D39B77D292CF892007AE783 /* AppDelegate.swift in Sources */,
@@ -507,6 +526,7 @@
 				3DC7D1BC292D1706008C5D7A /* AccountBookListViewModel.swift in Sources */,
 				3D51CC1F293F84C3005620C2 /* NewAccountBookViewModel.swift in Sources */,
 				3D2BC3FC295ACF7E00CE4AE6 /* SubCategoryCell.swift in Sources */,
+				3D557D0B296D58D900FCABE1 /* DetailViewController.swift in Sources */,
 				3D0DE4C12966715400792884 /* LoginViewModel.swift in Sources */,
 				3D39B77F292CF892007AE783 /* SceneDelegate.swift in Sources */,
 				3D67F050293633E500095700 /* Summary.swift in Sources */,

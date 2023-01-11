@@ -317,10 +317,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wYE-jd-FdJ">
-                                <rect key="frame" x="15" y="77" width="360" height="200"/>
+                                <rect key="frame" x="30" y="77" width="330" height="120"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="YWs-LI-x3M"/>
+                                    <constraint firstAttribute="height" constant="120" id="YWs-LI-x3M"/>
                                 </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -330,9 +330,9 @@
                         <viewLayoutGuide key="safeArea" id="gFQ-rh-9T1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="wYE-jd-FdJ" firstAttribute="leading" secondItem="gFQ-rh-9T1" secondAttribute="leading" constant="15" id="50O-FS-zOt"/>
+                            <constraint firstItem="wYE-jd-FdJ" firstAttribute="leading" secondItem="gFQ-rh-9T1" secondAttribute="leading" constant="30" id="50O-FS-zOt"/>
                             <constraint firstItem="wYE-jd-FdJ" firstAttribute="top" secondItem="gFQ-rh-9T1" secondAttribute="top" constant="30" id="CwG-Ef-db5"/>
-                            <constraint firstItem="gFQ-rh-9T1" firstAttribute="trailing" secondItem="wYE-jd-FdJ" secondAttribute="trailing" constant="15" id="uPD-eb-Ddu"/>
+                            <constraint firstItem="gFQ-rh-9T1" firstAttribute="trailing" secondItem="wYE-jd-FdJ" secondAttribute="trailing" constant="30" id="uPD-eb-Ddu"/>
                         </constraints>
                     </view>
                     <connections>

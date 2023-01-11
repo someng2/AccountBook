@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import Combine
 
 final class AccountBookListViewModel {
     
@@ -16,6 +17,18 @@ final class AccountBookListViewModel {
     @Published var uid: String = ""
     
     let db = Firestore.firestore()
+
+    let selectedItem: CurrentValueSubject<AccountBook?, Never>
+    let didSelect = PassthroughSubject<AccountBook, Never>()
+    
+    init(selectedItem: AccountBook? = nil) {
+        self.selectedItem = CurrentValueSubject(selectedItem)
+    }
+    
+    func didSelect(at indexPath: IndexPath) {
+        let item = list[indexPath.item]
+        selectedItem.send(item)
+    }
     
     func fetchAccountBooks() {
         let formatter = DateFormatter()
