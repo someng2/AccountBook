@@ -131,7 +131,6 @@ class NewAccountBookViewController: UIViewController{
         }, completion: {(isCompleted) in
             toastLabel.removeFromSuperview()
         })
-        
     }
     
     private func updateUI(_ expenseMode: Bool) {

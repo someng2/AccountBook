@@ -72,6 +72,7 @@ class AccountBookListViewController: UIViewController {
         datasource.apply(snapshot)
         
         collectionView.collectionViewLayout = layout()
+        collectionView.delegate = self
     }
     
     private func addFloatingButton() {
@@ -100,7 +101,7 @@ class AccountBookListViewController: UIViewController {
         viewModel.$dateFilter
             .receive(on: RunLoop.main)
             .sink { filter in
-                print("---> new date filter: \(filter)")
+//                print("---> new date filter: \(filter)")
                 self.viewModel.loadFirebaseData(dateFilter: filter)
             }.store(in: &subscriptions)
         
@@ -121,6 +122,17 @@ class AccountBookListViewController: UIViewController {
                 self.viewModel.summary = Summary(revenue: totalRevenue, expense: totalExpense, sum: totalRevenue-totalExpense)
                 //                self.viewModel.dic = Dictionary(grouping: list, by: { $0.monthlyIdentifier })
                 self.applySnapshot(items: list, section: .list)
+            }.store(in: &subscriptions)
+        
+        viewModel.selectedItem
+            .compactMap{ $0 }   // nil이 아닐 때
+            .receive(on: RunLoop.main)
+            .sink { accountBook in
+                let sb = UIStoryboard(name: "Detail", bundle: nil)
+                let vc = sb.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+                vc.viewModel = DetailViewModel(accountBook: accountBook)
+//                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true)
             }.store(in: &subscriptions)
     }
     
@@ -156,7 +168,6 @@ class AccountBookListViewController: UIViewController {
     }
     
     private func layout() -> UICollectionViewCompositionalLayout {
-        
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(150))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
@@ -164,8 +175,15 @@ class AccountBookListViewController: UIViewController {
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
-        
+    
         return UICollectionViewCompositionalLayout(section: section)
     }
     
+}
+
+extension AccountBookListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let accountBook = viewModel.list[indexPath.item]
+        viewModel.didSelect(at: indexPath)
+    }
 }
