@@ -10,6 +10,7 @@ import Combine
 import DTZFloatingActionButton
 import Firebase
 import FirebaseFirestore
+import RxSwift
 
 class AccountBookListViewController: UIViewController {
     
@@ -23,6 +24,7 @@ class AccountBookListViewController: UIViewController {
     let viewModel: AccountBookListViewModel = AccountBookListViewModel()
     var datasource: UICollectionViewDiffableDataSource<Section, Item>!
     var subscriptions = Set<AnyCancellable>()
+    let bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,14 +128,14 @@ class AccountBookListViewController: UIViewController {
         
         viewModel.selectedItem
             .compactMap{ $0 }   // nil이 아닐 때
-            .receive(on: RunLoop.main)
-            .sink { accountBook in
+            .observe(on: MainScheduler.instance)
+            .subscribe { accountBook in
                 let sb = UIStoryboard(name: "Detail", bundle: nil)
                 let vc = sb.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
                 vc.viewModel = DetailViewModel(accountBook: accountBook)
 //                vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true)
-            }.store(in: &subscriptions)
+            }.disposed(by: bag)
     }
     
     private func applySnapshot(items: [Item], section: Section) {
@@ -183,7 +185,9 @@ class AccountBookListViewController: UIViewController {
 
 extension AccountBookListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let accountBook = viewModel.list[indexPath.item]
-        viewModel.didSelect(at: indexPath)
+//        let accountBook = viewModel.list[indexPath.item]
+        if indexPath.section == 1 {
+            viewModel.didSelect(at: indexPath)
+        }
     }
 }

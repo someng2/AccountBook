@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import Combine
+import RxSwift
 
 final class AccountBookListViewModel {
     
@@ -18,16 +19,15 @@ final class AccountBookListViewModel {
     
     let db = Firestore.firestore()
 
-    let selectedItem: CurrentValueSubject<AccountBook?, Never>
-    let didSelect = PassthroughSubject<AccountBook, Never>()
+    let selectedItem: BehaviorSubject<AccountBook?>
     
     init(selectedItem: AccountBook? = nil) {
-        self.selectedItem = CurrentValueSubject(selectedItem)
+        self.selectedItem = BehaviorSubject(value: selectedItem)
     }
     
     func didSelect(at indexPath: IndexPath) {
         let item = list[indexPath.item]
-        selectedItem.send(item)
+        selectedItem.onNext(item)
     }
     
     func fetchAccountBooks() {
