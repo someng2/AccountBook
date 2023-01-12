@@ -28,7 +28,6 @@ class DetailViewController: UIViewController {
     
     private func configureUI() {
         do { let item = try viewModel.accountBook.value()
-            print("accountBook: \(item)")
             closeButton.tintColor = .black
             iconImageView.image = getIcon(item)
             iconImageView.tintColor = .white

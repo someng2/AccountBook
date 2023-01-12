@@ -29,14 +29,14 @@ class AccountBookListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-        bind()
         configureCollectionView()
         viewModel.getUid()
+        bind()
         addFloatingButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.loadFirebaseData(dateFilter: viewModel.dateFilter)
+        viewModel.loadFirebaseData(dateFilter: try! viewModel.dateFilter.value())
     }
     
     private func setupNavigationBar() {
@@ -83,7 +83,7 @@ class AccountBookListViewController: UIViewController {
             button in
             let sb = UIStoryboard(name: "NewAccountBook", bundle: nil)
             let vc = sb.instantiateViewController(withIdentifier: "NewAccountBookViewController") as! NewAccountBookViewController
-            vc.vm.uid = self.viewModel.uid
+            vc.vm.uid = try! self.viewModel.uid.value()
             self.navigationController?.pushViewController(vc, animated: true)
         }
         actionButton.isScrollView = true
@@ -93,38 +93,38 @@ class AccountBookListViewController: UIViewController {
     
     private func bind() {
         
-        viewModel.$uid
-            .receive(on: RunLoop.main)
-            .sink { uid in
+        viewModel.uid
+            .observe(on: MainScheduler.instance)
+            .subscribe { uid in
                 print("---> uid = \(uid)")
                 self.viewModel.fetchDateFilter()
-            }.store(in: &subscriptions)
+            }.disposed(by: bag)
         
-        viewModel.$dateFilter
-            .receive(on: RunLoop.main)
-            .sink { filter in
-//                print("---> new date filter: \(filter)")
+        viewModel.dateFilter
+            .observe(on: MainScheduler.instance)
+            .subscribe { filter in
+                print("---> new date filter: \(filter)")
                 self.viewModel.loadFirebaseData(dateFilter: filter)
-            }.store(in: &subscriptions)
+            }.disposed(by: bag)
         
-        viewModel.$summary
-            .receive(on: RunLoop.main)
-            .sink { summary in
+        viewModel.summary
+            .observe(on: MainScheduler.instance)
+            .subscribe { summary in
 //                print("---> summary = \(summary)")
                 self.applySnapshot(items: [summary], section: .summary)
-            }.store(in: &subscriptions)
+            }.disposed(by: bag)
         
-        viewModel.$list
-            .receive(on: RunLoop.main)
-            .sink { list in
+        viewModel.list
+            .observe(on: MainScheduler.instance)
+            .subscribe { list in
+//                print("---> list = \(list)")
                 let revenueList = list.filter { $0.category == "수입"}
                 let totalRevenue = revenueList.map({$0.price}).reduce(0, +)
                 let expenseList = list.filter { $0.category == "지출"}
                 let totalExpense = expenseList.map({$0.price}).reduce(0, +)
-                self.viewModel.summary = Summary(revenue: totalRevenue, expense: totalExpense, sum: totalRevenue-totalExpense)
-                //                self.viewModel.dic = Dictionary(grouping: list, by: { $0.monthlyIdentifier })
+                self.viewModel.summary.onNext(Summary(revenue: totalRevenue, expense: totalExpense, sum: totalRevenue-totalExpense))
                 self.applySnapshot(items: list, section: .list)
-            }.store(in: &subscriptions)
+            }.disposed(by: bag)
         
         viewModel.selectedItem
             .compactMap{ $0 }   // nil이 아닐 때
