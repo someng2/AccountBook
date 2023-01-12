@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 import DTZFloatingActionButton
 import Firebase
 import FirebaseFirestore
@@ -23,7 +22,6 @@ class AccountBookListViewController: UIViewController {
     }
     let viewModel: AccountBookListViewModel = AccountBookListViewModel()
     var datasource: UICollectionViewDiffableDataSource<Section, Item>!
-    var subscriptions = Set<AnyCancellable>()
     let bag = DisposeBag()
     
     override func viewDidLoad() {

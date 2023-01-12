@@ -7,7 +7,6 @@
 
 import Foundation
 import FirebaseFirestore
-import Combine
 import RxSwift
 
 final class AccountBookListViewModel {
@@ -63,6 +62,7 @@ final class AccountBookListViewModel {
         let ref = db
             .collection("User").document(try! self.uid.value())
             .collection("AccountBook")
+            .order(by: "date", descending: true)
         
         ref.getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -75,7 +75,7 @@ final class AccountBookListViewModel {
                         list.append(AccountBook(category: data["category"] as! String, subcategory: data["subcategory"] as! String, contents: data["contents"] as! String, price: data["price"] as! Int, date: data["date"] as! String))
                     }
                 }
-                self.list.onNext(list.sorted(by: { $0.hourIdentifier > $1.hourIdentifier }))
+                self.list.onNext(list)
             }
         }
     }

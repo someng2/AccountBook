@@ -24,8 +24,9 @@ class NewContentViewController: UIViewController {
         compeleteButtonItem.tintColor = UIColor(named: "SecondaryNavy")
         self.navigationItem.rightBarButtonItem = compeleteButtonItem
         
-        contentTextView.text = vm.contents.isEmpty ? "내용을 입력하세요 (12자 이내)" : vm.contents
-        contentTextView.textColor = vm.contents.isEmpty ? UIColor.lightGray : .black
+        let contents = try! vm.contents.value()
+        contentTextView.text = contents.isEmpty ? "내용을 입력하세요 (12자 이내)" : contents
+        contentTextView.textColor = contents.isEmpty ? UIColor.lightGray : .black
         contentTextView.layer.borderWidth = 3.0
         contentTextView.layer.cornerRadius = 15
         contentTextView.contentInset = .init(top: 10, left: 10, bottom: 10, right: 10)
@@ -39,7 +40,7 @@ class NewContentViewController: UIViewController {
             return
         }
         
-        vm.contents = (contentTextView.text == "내용을 입력하세요 (12자 이내)") ? "" : contentTextView.text
+        vm.contents.onNext((contentTextView.text == "내용을 입력하세요 (12자 이내)") ? "" : contentTextView.text)
         print("---> accountBook: \(vm.accountBook)")
         navigationController?.popViewController(animated: true)
     }
