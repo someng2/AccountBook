@@ -20,35 +20,38 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var editButton: UIButton!
     
     var viewModel: DetailViewModel!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print("accountBook: \(viewModel.accountBook.value)")
         configureUI()
     }
     
     private func configureUI() {
-        let item = viewModel.accountBook.value
-        closeButton.tintColor = .black
-        iconImageView.image = getIcon(item)
-        iconImageView.tintColor = .white
-        circleView.layer.cornerRadius = self.circleView.layer.bounds.width / 2
-        circleView.clipsToBounds = true
-        circleView.backgroundColor = UIColor(named: "SecondaryOrange")
-        categoryLabel.text = "\(item.category) 정보"
-        dateLabel.text = item.date
-        subcategoryLabel.text = item.subcategory
-        contentsLabel.text = item.contents
-        priceLabel.text = formatPrice(item.price)
-        editButton.layer.cornerRadius = 30
-        editButton.layer.borderWidth = 3
-        editButton.layer.borderColor = UIColor(named: "SecondaryOrange")?.cgColor
+        do { let item = try viewModel.accountBook.value()
+            print("accountBook: \(item)")
+            closeButton.tintColor = .black
+            iconImageView.image = getIcon(item)
+            iconImageView.tintColor = .white
+            circleView.layer.cornerRadius = self.circleView.layer.bounds.width / 2
+            circleView.clipsToBounds = true
+            circleView.backgroundColor = UIColor(named: "SecondaryOrange")
+            categoryLabel.text = "\(item.category) 정보"
+            dateLabel.text = item.date
+            subcategoryLabel.text = item.subcategory
+            contentsLabel.text = item.contents
+            priceLabel.text = formatPrice(item.price)
+            editButton.layer.cornerRadius = 30
+            editButton.layer.borderWidth = 3
+            editButton.layer.borderColor = UIColor(named: "SecondaryOrange")?.cgColor
+        } catch(let error) {
+            print(error)
+        }
     }
     
     private func formatPrice(_ price: Int) -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-
+        
         if let result = numberFormatter.string(from: NSNumber(value: price)) {
             return result
         } else {
