@@ -8,35 +8,35 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseAuth
-import Combine
+import RxSwift
 
 final class LoginViewModel {
     
-    @Published var user: User
-    @Published var uid: String = ""
-    @Published var email: String = ""
-    @Published var nickname: String = ""
+    var user: User
+    var uid = PublishSubject<String>()
+    var email = PublishSubject<String>()
+    var nickname = PublishSubject<String>()
     
     let db = Firestore.firestore()
-    var subscriptions = Set<AnyCancellable>()
+    let bag = DisposeBag()
     
     init() {
         self.user = User(uid: "", email: "", nickname: "")
         
-        $uid.sink { uid in
+        uid.subscribe { uid in
             print("---> uid = \(uid)")
             self.user.uid = uid
-        }.store(in: &subscriptions)
+        }.disposed(by: bag)
         
-        $email.sink { email in
-            print("---> email = \(email)")
+        email.subscribe { email in
+//            print("---> email = \(email)")
             self.user.email = email
-        }.store(in: &subscriptions)
+        }.disposed(by: bag)
         
-        $nickname.sink { nickname in
-            print("---> nickname = \(nickname)")
+        nickname.subscribe { nickname in
+//            print("---> nickname = \(nickname)")
             self.user.nickname = nickname
-        }.store(in: &subscriptions)
+        }.disposed(by: bag)
     }
     
     func saveNewUser(email: String, pw: String) {
