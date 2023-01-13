@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if UserDefaults.standard.string(forKey: "Uid") != nil {
             window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+            
         } else {
             window?.rootViewController = UIStoryboard(name: "Login", bundle: nil).instantiateInitialViewController()
         }

@@ -7,7 +7,7 @@
 
 import UIKit
 import FirebaseAuth
-import Combine
+import RxSwift
 
 class SignUpViewController: UIViewController {
     
@@ -17,21 +17,18 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var emailErrorLabel: UILabel!
     @IBOutlet weak var nicknameTextField: UITextField!
     @IBOutlet weak var nickErrorLabel: UILabel!
-    
     @IBOutlet weak var pwTextField: UITextField!
     @IBOutlet weak var pwDoubleTextField: UITextField!
-    
     @IBOutlet weak var pwErrorLabel: UILabel!
     
-    var subscriptions = Set<AnyCancellable>()
     var emailAuthCompleted = false
     var viewModel: LoginViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        bind()
         UserDefaults.standard.link = ""
+        bind()
     }
     
     @IBAction func deleteBtnTapped(_ sender: Any) {
@@ -51,20 +48,17 @@ class SignUpViewController: UIViewController {
     }
     
     private func bind() {
-        UserDefaults.standard
-            .publisher(for: \.link)
-            .handleEvents(receiveOutput: { link in
-                print("---> link = \(link)")
-                if !link.isEmpty {
-                    self.updateErrorMessage(label: self.emailErrorLabel, isError: false, message: "이메일 인증 완료!")
-                    self.emailAuthCompleted = true
-                } else {
-                    self.emailErrorLabel.text = ""
-                    self.emailAuthCompleted = false
-                }
-            })
-            .sink { _ in }
-            .store(in: &subscriptions)
+        viewModel.observer = UserDefaults.standard.observe(\.link, changeHandler: { defaults, value in
+            let link = defaults.link
+//            print("---> link: \(link)")
+            if !link.isEmpty {
+                self.updateErrorMessage(label: self.emailErrorLabel, isError: false, message: "이메일 인증 완료!")
+                self.emailAuthCompleted = true
+            } else {
+                self.emailErrorLabel.text = ""
+                self.emailAuthCompleted = false
+            }
+        })
     }
     
     private func configureBtnShadow(button: UIButton) {
@@ -142,14 +136,16 @@ class SignUpViewController: UIViewController {
 //            }
 //            print("---> sign In: \(result)")
 //        }
-        viewModel.email = email
-        viewModel.nickname = nickname
+        
+        viewModel.email.onNext(email)
+        viewModel.nickname.onNext(nickname)
         viewModel.saveNewUser(email: email, pw: pw)
         self.dismiss(animated: true)
     }
     
     @IBAction func emailAuthButtonTapped(_ sender: Any) {
         emailErrorLabel.text = ""
+        emailAuthCompleted = false
         view.endEditing(true)
         
         guard let email = emailTextField.text else {
@@ -160,28 +156,27 @@ class SignUpViewController: UIViewController {
             updateErrorMessage(label: emailErrorLabel, isError: true, message: "이메일을 입력해주세요.")
             return
         }
-        
+
         if !isValidEmail(email: email) {
             updateErrorMessage(label: emailErrorLabel, isError: true, message: "이메일 형식이 잘못되었습니다.")
             return
         }
-        
+
         // TODO: 이메일 가입여부 확인
-        
-        
-        
+
+
         let actionCodeSettings = ActionCodeSettings()
         actionCodeSettings.url = URL(string: "https://accountbook-270f1.firebaseapp.com/?email=\(email)")
         actionCodeSettings.handleCodeInApp = true
         actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
-        
+
         Auth.auth().sendSignInLink(toEmail: email, actionCodeSettings: actionCodeSettings) { error in
             if let error = error {
                 print("이메일 전송실패 \"\(error.localizedDescription)\"")
                 return
             } else {
                 print("이메일 전송완료!")
-                
+
                 self.updateErrorMessage(label: self.emailErrorLabel, isError: false, message: "인증 메일을 확인해주세요.\n(메일이 오지 않을 시, 스팸 메일함 확인)")
             }
         }
@@ -193,13 +188,4 @@ class SignUpViewController: UIViewController {
     
 }
 
-extension UserDefaults {
-    @objc var link: String {
-        get {
-            return string(forKey: "Link") ?? ""
-        }
-        set {
-            set(newValue, forKey: "Link")
-        }
-    }
-}
+

@@ -6,8 +6,7 @@
 //
 
 import UIKit
-import Combine
-
+import RxSwift
 
 class NewAccountBookViewController: UIViewController{
     
@@ -22,7 +21,7 @@ class NewAccountBookViewController: UIViewController{
     @IBOutlet weak var contentLabel: UILabel!
     
     var vm: NewAccountBookViewModel = NewAccountBookViewModel()
-    var subscriptions = Set<AnyCancellable>()
+    let bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,22 +37,23 @@ class NewAccountBookViewController: UIViewController{
     }
 
     private func bind() {
-        vm.$expenseMode
-            .sink { mode in
+        vm.expenseMode
+            .subscribe { mode in
+//                print("---> expenseMode: \(mode)")
                 self.updateUI(mode)
-            }.store(in: &subscriptions)
+            }.disposed(by: bag)
         
-        vm.$contents
-            .sink { contents in
+        vm.contents
+            .subscribe { contents in
                 print("---> contents : \(contents)")
                 self.contentLabel.text = (contents.isEmpty ? "내용을 입력하세요." : contents)
-            }.store(in: &subscriptions)
+            }.disposed(by: bag)
         
-        vm.$subcategory
-            .sink { subcategory in
+        vm.subcategory
+            .subscribe { subcategory in
                 print("---> subcategory: \(subcategory)")
                 self.subcategoryLabel.text = subcategory
-            }.store(in: &subscriptions)
+            }.disposed(by: bag)
     }
     
     private func setupUI() {
@@ -85,15 +85,15 @@ class NewAccountBookViewController: UIViewController{
         datePicker.timeZone = .autoupdatingCurrent
         
         contentLabel.text = vm.accountBook.contents.isEmpty ? "내용을 입력하세요." : vm.accountBook.contents
-        subcategoryLabel.text = vm.expenseMode ? SubCategory.expenseList[0].name : SubCategory.revenueList[0].name
+        subcategoryLabel.text = try! vm.expenseMode.value() ? SubCategory.expenseList[0].name : SubCategory.revenueList[0].name
     }
     
     @IBAction func pressedExpenseButton(_ sender: Any) {
-        vm.expenseMode = true
+        vm.expenseMode.onNext(true)
     }
     
     @IBAction func pressedRevenueButton(_ sender: Any) {
-        vm.expenseMode = false
+        vm.expenseMode.onNext(false)
     }
     
     @objc func saveButtonTapped(sender: UIBarButtonItem) {
@@ -145,7 +145,7 @@ class NewAccountBookViewController: UIViewController{
         revenueButton.layer.borderColor = expenseMode ? UIColor(ciColor: .gray).cgColor : UIColor(named: "PrimaryBlue")?.cgColor
         revenueButton.titleLabel?.font = .systemFont(ofSize: 16, weight: expenseMode ? .regular : .bold)
         
-        vm.subcategory = expenseMode ? SubCategory.expenseList[0].name : SubCategory.revenueList[0].name
+        vm.subcategory.onNext(expenseMode ? SubCategory.expenseList[0].name : SubCategory.revenueList[0].name)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){

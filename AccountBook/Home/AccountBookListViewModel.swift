@@ -7,45 +7,42 @@
 
 import Foundation
 import FirebaseFirestore
-import Combine
+import RxSwift
 
 final class AccountBookListViewModel {
     
-    @Published var list: [AccountBook] = []
-    @Published var summary: Summary = Summary.default
-    @Published var dateFilter: String = ""
-    @Published var uid: String = ""
+    var list = BehaviorSubject<[AccountBook]>.init(value: [])
+    var summary = BehaviorSubject<Summary>.init(value: Summary.default)
+    var dateFilter = BehaviorSubject<String>.init(value: "")
+    var uid = BehaviorSubject<String>.init(value: "")
     
     let db = Firestore.firestore()
-
-    let selectedItem: CurrentValueSubject<AccountBook?, Never>
-    let didSelect = PassthroughSubject<AccountBook, Never>()
+    let selectedItem: BehaviorSubject<AccountBook?>
     
     init(selectedItem: AccountBook? = nil) {
-        self.selectedItem = CurrentValueSubject(selectedItem)
+        self.selectedItem = BehaviorSubject(value: selectedItem)
     }
     
     func didSelect(at indexPath: IndexPath) {
-        let item = list[indexPath.item]
-        selectedItem.send(item)
+        do {
+            let item = try list.value()[indexPath.item]
+            print("item = \(String(describing: item))")
+            selectedItem.onNext(item)
+        } catch {
+            print("error!")
+        }
+        
     }
     
     func fetchAccountBooks() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월"
-        self.dateFilter = formatter.string(from: Date())
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//            self.list = AccountBook.tempList.filter {
-//                $0.monthlyIdentifier == self.dateFilter
-//            }.sorted(by: { $0.hourIdentifier > $1.hourIdentifier })
-//        }
-//
+        self.dateFilter.onNext(formatter.string(from: Date()))
     }
     
     func getUid() {
         if let uid = UserDefaults.standard.string(forKey: "Uid") {
-            self.uid = uid
+            self.uid.onNext(uid)
         } else {
             print("uid 없음!")
         }
@@ -54,7 +51,7 @@ final class AccountBookListViewModel {
     func fetchDateFilter() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월"
-        self.dateFilter = formatter.string(from: Date())
+        self.dateFilter.onNext(formatter.string(from: Date()))
     }
     
     func loadFirebaseData(dateFilter: String){
@@ -63,8 +60,9 @@ final class AccountBookListViewModel {
         formatter.dateFormat = "yyyy년 MM월"
         
         let ref = db
-            .collection("User").document(self.uid)
+            .collection("User").document(try! self.uid.value())
             .collection("AccountBook")
+            .order(by: "date", descending: true)
         
         ref.getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -77,7 +75,7 @@ final class AccountBookListViewModel {
                         list.append(AccountBook(category: data["category"] as! String, subcategory: data["subcategory"] as! String, contents: data["contents"] as! String, price: data["price"] as! Int, date: data["date"] as! String))
                     }
                 }
-                self.list = list.sorted(by: { $0.hourIdentifier > $1.hourIdentifier })
+                self.list.onNext(list)
             }
         }
     }

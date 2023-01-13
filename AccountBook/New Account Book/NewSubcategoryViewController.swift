@@ -30,7 +30,7 @@ class NewSubcategoryViewController: UIViewController {
     }
     
     private func configureMode() {
-        list = vm.expenseMode ? SubCategory.expenseList : SubCategory.revenueList
+        list = try! vm.expenseMode.value() ? SubCategory.expenseList : SubCategory.revenueList
     }
     
     private func configureCollectionView() {
@@ -39,7 +39,7 @@ class NewSubcategoryViewController: UIViewController {
                 return nil
             }
             cell.configure(item)
-            if (item.name == self.vm.subcategory) {
+            if (try! item.name == self.vm.subcategory.value()) {
                 cell.setupDefaultBackground()
                 self.chosenIndex = indexPath
             }
@@ -76,11 +76,11 @@ class NewSubcategoryViewController: UIViewController {
 extension NewSubcategoryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let subcategory = list[indexPath.item]
-        print(">>> selected index: \(indexPath.item) -> \(subcategory.name)")
+//        print(">>> selected index: \(indexPath.item) -> \(subcategory.name)")
         collectionView.cellForItem(at: self.chosenIndex)?.backgroundColor = UIColor(named: "LightOrange")
         collectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor(named: "SecondaryOrange")
         self.chosenIndex = indexPath
-        vm.subcategory = subcategory.name
+        vm.subcategory.onNext(subcategory.name)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.navigationController?.popViewController(animated: true)
         }

@@ -6,33 +6,37 @@
 //
 
 import Foundation
-import Combine
 import FirebaseFirestore
+import RxSwift
 
 final class NewAccountBookViewModel {
-    @Published var accountBook: AccountBook
-    @Published var expenseMode: Bool = true
-    @Published var subcategory: String = SubCategory.expenseList[0].name
-    @Published var contents: String = ""
+    var accountBook: AccountBook
     
-    var subscriptions = Set<AnyCancellable>()
+    var expenseMode =  BehaviorSubject<Bool>.init(value: true)
+    var subcategory = BehaviorSubject<String>.init(value: SubCategory.expenseList[0].name)
+    var contents = BehaviorSubject<String>.init(value: "")
+    
+    let bag = DisposeBag()
     let db = Firestore.firestore()
     var uid: String = ""
     
     init() {
         accountBook = AccountBook(category: "", subcategory: "", contents: "", price: 0, date: "")
         
-        $expenseMode.sink { expenseMode in
-            self.accountBook.category = expenseMode ? "지출" : "수입"
-        }.store(in: &subscriptions)
+        expenseMode
+            .subscribe { expenseMode in
+                self.accountBook.category = expenseMode ? "지출" : "수입"
+            }.disposed(by: bag)
         
-        $subcategory.sink { subcategory in
-            self.accountBook.subcategory = subcategory
-        }.store(in: &subscriptions)
+        subcategory
+            .subscribe { subcategory in
+                self.accountBook.subcategory = subcategory
+            }.disposed(by: bag)
         
-        $contents.sink { contents in
+        contents
+            .subscribe { contents in
             self.accountBook.contents = contents
-        }.store(in: &subscriptions)
+        }.disposed(by: bag)
     }
     
     func saveNewData() {

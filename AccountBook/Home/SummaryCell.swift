@@ -45,7 +45,7 @@ class SummaryCell: UICollectionViewCell {
     
     func configure(item: Summary, vm: AccountBookListViewModel) {
         viewModel = vm
-        yearTextField.text = "🗓  \(viewModel.dateFilter)"
+        yearTextField.text = "🗓  \(try! viewModel.dateFilter.value())"
         revenueLabel.text = "\(formatNumber(item.revenue))원"
         expenseLabel.text = "\(formatNumber(item.expense))원"
         sumLabel.text = "\(formatNumber(item.sum))원"
@@ -57,7 +57,7 @@ class SummaryCell: UICollectionViewCell {
         picker.minimumDate = Calendar.current.date(byAdding: .year, value: -10, to: Date())
         picker.maximumDate = Date()
         
-        picker.date = getDate(viewModel.dateFilter)
+        picker.date = getDate(try! viewModel.dateFilter.value())
         picker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         
         let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
@@ -81,7 +81,7 @@ class SummaryCell: UICollectionViewCell {
     }
     
     @objc func buttonAction(sender: UIButton!) {
-        viewModel.dateFilter = yearTextField.text?.components(separatedBy: "  ")[1] ?? "미선택"
+        viewModel.dateFilter.onNext(yearTextField.text?.components(separatedBy: "  ")[1] ?? "미선택")
 //        print("-> viewModel.dateFilter: \(viewModel.dateFilter)")
 //        print(yearTextField.text?.components(separatedBy: "  "))
         yearTextField.resignFirstResponder()
@@ -90,7 +90,7 @@ class SummaryCell: UICollectionViewCell {
     private func getDate(_ str: String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy년 MM월"
-        let date = dateFormatter.date(from: str)!
+        let date = dateFormatter.date(from: str) ?? Date()
         let cal = Calendar.current.date(byAdding: .month, value: 1, to: date)!
         return cal
     }
