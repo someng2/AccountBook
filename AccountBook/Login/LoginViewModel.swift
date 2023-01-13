@@ -18,6 +18,7 @@ final class LoginViewModel {
     var nickname = PublishSubject<String>()
     
     let db = Firestore.firestore()
+    var observer: NSKeyValueObservation?
     let bag = DisposeBag()
     
     init() {
@@ -67,6 +68,19 @@ final class LoginViewModel {
         }
     }
     
+    deinit {
+        observer?.invalidate()
+    }
 
-    
+}
+
+extension UserDefaults {
+    @objc dynamic var link: String {
+        get {
+            return string(forKey: "Link") ?? ""
+        }
+        set {
+            set(newValue, forKey: "Link")
+        }
+    }
 }

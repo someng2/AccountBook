@@ -7,7 +7,7 @@
 
 import UIKit
 import FirebaseAuth
-import Combine
+import RxSwift
 
 class SignUpViewController: UIViewController {
     
@@ -17,21 +17,18 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var emailErrorLabel: UILabel!
     @IBOutlet weak var nicknameTextField: UITextField!
     @IBOutlet weak var nickErrorLabel: UILabel!
-    
     @IBOutlet weak var pwTextField: UITextField!
     @IBOutlet weak var pwDoubleTextField: UITextField!
-    
     @IBOutlet weak var pwErrorLabel: UILabel!
     
-    var subscriptions = Set<AnyCancellable>()
     var emailAuthCompleted = false
     var viewModel: LoginViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        bind()
         UserDefaults.standard.link = ""
+        bind()
     }
     
     @IBAction func deleteBtnTapped(_ sender: Any) {
@@ -51,20 +48,17 @@ class SignUpViewController: UIViewController {
     }
     
     private func bind() {
-        UserDefaults.standard
-            .publisher(for: \.link)
-            .handleEvents(receiveOutput: { link in
-                print("---> link = \(link)")
-                if !link.isEmpty {
-                    self.updateErrorMessage(label: self.emailErrorLabel, isError: false, message: "이메일 인증 완료!")
-                    self.emailAuthCompleted = true
-                } else {
-                    self.emailErrorLabel.text = ""
-                    self.emailAuthCompleted = false
-                }
-            })
-            .sink { _ in }
-            .store(in: &subscriptions)
+        viewModel.observer = UserDefaults.standard.observe(\.link, changeHandler: { defaults, value in
+            let link = defaults.link
+//            print("---> link: \(link)")
+            if !link.isEmpty {
+                self.updateErrorMessage(label: self.emailErrorLabel, isError: false, message: "이메일 인증 완료!")
+                self.emailAuthCompleted = true
+            } else {
+                self.emailErrorLabel.text = ""
+                self.emailAuthCompleted = false
+            }
+        })
     }
     
     private func configureBtnShadow(button: UIButton) {
@@ -194,13 +188,4 @@ class SignUpViewController: UIViewController {
     
 }
 
-extension UserDefaults {
-    @objc var link: String {
-        get {
-            return string(forKey: "Link") ?? ""
-        }
-        set {
-            set(newValue, forKey: "Link")
-        }
-    }
-}
+
