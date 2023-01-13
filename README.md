@@ -1,7 +1,7 @@
 ## 수익과 지출을 기록하고 관리하는 가계부 앱 '살림의 왕'입니다.
 
 ### 🔧 기술스택
-UIKit, Combine, Firebase Authentication, Firestore, Git
+UIKit, RxSwift, Firebase Authentication, Firestore, UserDefaults, KVO, Git
 
 ### 🌱 기능
 - 이메일을 통한 회원가입 및 로그인
