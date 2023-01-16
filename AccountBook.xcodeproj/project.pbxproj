@@ -26,6 +26,7 @@
 		3D39B7AD292CF8BF007AE783 /* AccountBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D39B7AC292CF8BF007AE783 /* AccountBook.swift */; };
 		3D39B7B0292CFE3E007AE783 /* AccountBookListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D39B7AF292CFE3E007AE783 /* AccountBookListViewController.swift */; };
 		3D39B7B3292D02C3007AE783 /* SummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D39B7B2292D02C3007AE783 /* SummaryCell.swift */; };
+		3D4A71232975455800DBA007 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4A71222975455800DBA007 /* ProfileViewController.swift */; };
 		3D51CC1D293F7BFD005620C2 /* NewContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D51CC1C293F7BFD005620C2 /* NewContentViewController.swift */; };
 		3D51CC1F293F84C3005620C2 /* NewAccountBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D51CC1E293F84C3005620C2 /* NewAccountBookViewModel.swift */; };
 		3D557D09296D58CE00FCABE1 /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D557D08296D58CE00FCABE1 /* Detail.storyboard */; };
@@ -84,6 +85,7 @@
 		3D39B7AC292CF8BF007AE783 /* AccountBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBook.swift; sourceTree = "<group>"; };
 		3D39B7AF292CFE3E007AE783 /* AccountBookListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBookListViewController.swift; sourceTree = "<group>"; };
 		3D39B7B2292D02C3007AE783 /* SummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCell.swift; sourceTree = "<group>"; };
+		3D4A71222975455800DBA007 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3D51CC1C293F7BFD005620C2 /* NewContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContentViewController.swift; sourceTree = "<group>"; };
 		3D51CC1E293F84C3005620C2 /* NewAccountBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountBookViewModel.swift; sourceTree = "<group>"; };
 		3D557D08296D58CE00FCABE1 /* Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				3D39B7B1292D028B007AE783 /* Home */,
 				3D557D07296D58B000FCABE1 /* Detail */,
 				3D653B95293C8024005365AC /* New Account Book */,
+				3D4A711F2975401E00DBA007 /* Profile */,
 				3D39B7AE292CFA08007AE783 /* Model */,
 				3D39B785292CF893007AE783 /* Assets.xcassets */,
 				3D39B787292CF893007AE783 /* LaunchScreen.storyboard */,
@@ -213,6 +216,14 @@
 				3DC7D1BB292D1706008C5D7A /* AccountBookListViewModel.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		3D4A711F2975401E00DBA007 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				3D4A71222975455800DBA007 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		3D557D07296D58B000FCABE1 /* Detail */ = {
@@ -533,6 +544,7 @@
 				3D2C4FFA296549A5007215E4 /* SignUpViewController.swift in Sources */,
 				3D0DE4C3296671BB00792884 /* User.swift in Sources */,
 				3D39B7B3292D02C3007AE783 /* SummaryCell.swift in Sources */,
+				3D4A71232975455800DBA007 /* ProfileViewController.swift in Sources */,
 				3D2BC3F8295AC66600CE4AE6 /* NewSubcategoryViewController.swift in Sources */,
 				3D51CC1D293F7BFD005620C2 /* NewContentViewController.swift in Sources */,
 			);

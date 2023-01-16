@@ -45,19 +45,23 @@ class AccountBookListViewController: UIViewController {
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         
-//        let logOutImage = UIImage(named: "logout")
-        let logOutImage = UIImage(systemName: "person.crop.circle")
-        let logOutButton = UIBarButtonItem(image: logOutImage, style: .plain, target: self, action: #selector(logOutButtonTapped))
+        let profileImage = UIImage(systemName: "person.crop.circle")
+        let logOutButton = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(profileButtonTapped))
         logOutButton.tintColor = .black
         self.navigationItem.rightBarButtonItem = logOutButton
     }
     
-    @objc func logOutButtonTapped() {
-        UserDefaults.standard.removeObject(forKey: "Uid")
-        let sb = UIStoryboard(name: "Login", bundle: nil)
-        let vc = sb.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+    @objc func profileButtonTapped() {
+        let vc = ProfileViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+//    @objc func logOutButtonTapped() {
+//        UserDefaults.standard.removeObject(forKey: "Uid")
+//        let sb = UIStoryboard(name: "Login", bundle: nil)
+//        let vc = sb.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+//        self.navigationController?.pushViewController(vc, animated: true)
+//    }
     
     private func configureCollectionView() {
         datasource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in

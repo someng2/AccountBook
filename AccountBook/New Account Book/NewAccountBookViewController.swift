@@ -45,13 +45,13 @@ class NewAccountBookViewController: UIViewController{
         
         vm.contents
             .subscribe { contents in
-                print("---> contents : \(contents)")
+//                print("---> contents : \(contents)")
                 self.contentLabel.text = (contents.isEmpty ? "내용을 입력하세요." : contents)
             }.disposed(by: bag)
         
         vm.subcategory
             .subscribe { subcategory in
-                print("---> subcategory: \(subcategory)")
+//                print("---> subcategory: \(subcategory)")
                 self.subcategoryLabel.text = subcategory
             }.disposed(by: bag)
     }

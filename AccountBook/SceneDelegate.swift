@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
         guard let webpageURL = userActivity.webpageURL else { return }
-        print("---> userActivity.webpageURL: \(userActivity.webpageURL)")
+        print("---> userActivity.webpageURL: \(String(describing: userActivity.webpageURL))")
         let link = webpageURL.absoluteString
         if Auth.auth().isSignIn(withEmailLink: link) {
             UserDefaults.standard.link = link
