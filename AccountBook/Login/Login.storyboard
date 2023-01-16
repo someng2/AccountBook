@@ -19,19 +19,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🤓" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAv-jI-jtI">
-                                <rect key="frame" x="160.66666666666666" y="191" width="54" height="60"/>
+                                <rect key="frame" x="160.66666666666666" y="151" width="54" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="살림의 왕" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ptx-ZO-SjU">
-                                <rect key="frame" x="132" y="261" width="111" height="36"/>
+                                <rect key="frame" x="132" y="221" width="111" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <color key="textColor" name="PrimaryBlue"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="이메일" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Fh-3F-RPC">
-                                <rect key="frame" x="28" y="397" width="319" height="60"/>
+                                <rect key="frame" x="28" y="347" width="319" height="60"/>
                                 <color key="backgroundColor" name="LightGray"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="uaI-Eo-NwR"/>
@@ -40,7 +40,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="비밀번호" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UB9-EX-0QK">
-                                <rect key="frame" x="28" y="472" width="319" height="60"/>
+                                <rect key="frame" x="28" y="422" width="319" height="60"/>
                                 <color key="backgroundColor" name="LightGray"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="A7O-1v-VeS"/>
@@ -49,13 +49,13 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이메일을 입력해 주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zld-aR-Fe8">
-                                <rect key="frame" x="32" y="552" width="142" height="18"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <rect key="frame" x="32" y="497" width="133" height="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                 <color key="textColor" systemColor="systemRedColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNk-ht-RE8">
-                                <rect key="frame" x="28" y="598" width="319" height="60"/>
+                                <rect key="frame" x="28" y="618" width="319" height="60"/>
                                 <color key="backgroundColor" name="PrimaryBlue"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="ipb-ui-NSm"/>
@@ -72,7 +72,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9RD-Vf-hhB">
-                                <rect key="frame" x="28" y="678" width="319" height="60"/>
+                                <rect key="frame" x="28" y="698" width="319" height="60"/>
                                 <color key="backgroundColor" name="LightBlue"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="4a9-dT-418"/>
@@ -94,16 +94,16 @@
                             <constraint firstItem="ptx-ZO-SjU" firstAttribute="top" secondItem="MAv-jI-jtI" secondAttribute="bottom" constant="10" id="9eV-q1-o0B"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="UB9-EX-0QK" secondAttribute="trailing" constant="28" id="A4q-66-yC3"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="9RD-Vf-hhB" secondAttribute="trailing" constant="28" id="Ft1-3e-nGP"/>
-                            <constraint firstItem="zld-aR-Fe8" firstAttribute="top" secondItem="UB9-EX-0QK" secondAttribute="bottom" constant="20" id="J5d-V3-Q4V"/>
+                            <constraint firstItem="zld-aR-Fe8" firstAttribute="top" secondItem="UB9-EX-0QK" secondAttribute="bottom" constant="15" id="J5d-V3-Q4V"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="6Fh-3F-RPC" secondAttribute="trailing" constant="28" id="J6V-ae-SbT"/>
                             <constraint firstItem="9RD-Vf-hhB" firstAttribute="top" secondItem="wNk-ht-RE8" secondAttribute="bottom" constant="20" id="Kmz-IT-iYF"/>
                             <constraint firstItem="UB9-EX-0QK" firstAttribute="top" secondItem="6Fh-3F-RPC" secondAttribute="bottom" constant="15" id="LHe-eh-rwc"/>
                             <constraint firstItem="MAv-jI-jtI" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="OPC-44-Z63"/>
-                            <constraint firstItem="MAv-jI-jtI" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="100" id="QKc-zw-2MN"/>
+                            <constraint firstItem="MAv-jI-jtI" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="60" id="QKc-zw-2MN"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="wNk-ht-RE8" secondAttribute="trailing" constant="28" id="QtZ-i0-Fht"/>
-                            <constraint firstItem="6Fh-3F-RPC" firstAttribute="top" secondItem="ptx-ZO-SjU" secondAttribute="bottom" constant="100" id="a5q-wh-wOR"/>
+                            <constraint firstItem="6Fh-3F-RPC" firstAttribute="top" secondItem="ptx-ZO-SjU" secondAttribute="bottom" constant="90" id="a5q-wh-wOR"/>
                             <constraint firstItem="ptx-ZO-SjU" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="dBU-EZ-Wdw"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="9RD-Vf-hhB" secondAttribute="bottom" constant="40" id="f3O-Nl-3oI"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="9RD-Vf-hhB" secondAttribute="bottom" constant="20" id="f3O-Nl-3oI"/>
                             <constraint firstItem="UB9-EX-0QK" firstAttribute="centerX" secondItem="6Fh-3F-RPC" secondAttribute="centerX" id="fET-Ht-OBs"/>
                             <constraint firstItem="9RD-Vf-hhB" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="28" id="fZW-rJ-vrV"/>
                             <constraint firstItem="zld-aR-Fe8" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="32" id="kuW-gb-G54"/>

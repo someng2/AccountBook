@@ -58,7 +58,7 @@ class LoginViewController: UIViewController {
                 let vc = sb.instantiateViewController(withIdentifier: "AccountBookListViewController") as! AccountBookListViewController
                 self.navigationController?.pushViewController(vc, animated: true)
             } else {
-                self.errorMessageLabel.text = "이메일과 비밀번호를 다시 확인해주세요."
+                self.errorMessageLabel.text = "이메일 또는 비밀번호를 다시 확인해주세요."
                 print("로그인 실패")
                 print(error.debugDescription)
             }
