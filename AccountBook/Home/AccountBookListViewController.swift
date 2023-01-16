@@ -45,7 +45,8 @@ class AccountBookListViewController: UIViewController {
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         
-        let logOutImage = UIImage(named: "logout")
+//        let logOutImage = UIImage(named: "logout")
+        let logOutImage = UIImage(systemName: "person.crop.circle")
         let logOutButton = UIBarButtonItem(image: logOutImage, style: .plain, target: self, action: #selector(logOutButtonTapped))
         logOutButton.tintColor = .black
         self.navigationItem.rightBarButtonItem = logOutButton

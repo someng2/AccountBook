@@ -26,7 +26,7 @@ final class AccountBookListViewModel {
     func didSelect(at indexPath: IndexPath) {
         do {
             let item = try list.value()[indexPath.item]
-            print("item = \(String(describing: item))")
+//            print("item = \(String(describing: item))")
             selectedItem.onNext(item)
         } catch {
             print("error!")
