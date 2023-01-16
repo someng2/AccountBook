@@ -50,7 +50,7 @@ class SignUpViewController: UIViewController {
     private func bind() {
         viewModel.observer = UserDefaults.standard.observe(\.link, changeHandler: { defaults, value in
             let link = defaults.link
-//            print("---> link: \(link)")
+            //            print("---> link: \(link)")
             if !link.isEmpty {
                 self.updateErrorMessage(label: self.emailErrorLabel, isError: false, message: "이메일 인증 완료!")
                 self.emailAuthCompleted = true
@@ -129,13 +129,13 @@ class SignUpViewController: UIViewController {
             return
         }
         
-//        Auth.auth().signIn(withEmail: email, link: UserDefaults.standard.link) { [weak self] result, error in
-//            if let error = error {
-//                print("email auth error \"\(error.localizedDescription)\"")
-//                return
-//            }
-//            print("---> sign In: \(result)")
-//        }
+        //        Auth.auth().signIn(withEmail: email, link: UserDefaults.standard.link) { [weak self] result, error in
+        //            if let error = error {
+        //                print("email auth error \"\(error.localizedDescription)\"")
+        //                return
+        //            }
+        //            print("---> sign In: \(result)")
+        //        }
         
         viewModel.email.onNext(email)
         viewModel.nickname.onNext(nickname)
@@ -145,7 +145,6 @@ class SignUpViewController: UIViewController {
     
     @IBAction func emailAuthButtonTapped(_ sender: Any) {
         emailErrorLabel.text = ""
-        emailAuthCompleted = false
         view.endEditing(true)
         
         guard let email = emailTextField.text else {
@@ -156,35 +155,45 @@ class SignUpViewController: UIViewController {
             updateErrorMessage(label: emailErrorLabel, isError: true, message: "이메일을 입력해주세요.")
             return
         }
-
+        
         if !isValidEmail(email: email) {
             updateErrorMessage(label: emailErrorLabel, isError: true, message: "이메일 형식이 잘못되었습니다.")
             return
         }
-
-        // TODO: 이메일 가입여부 확인
-
-
-        let actionCodeSettings = ActionCodeSettings()
-        actionCodeSettings.url = URL(string: "https://accountbook-270f1.firebaseapp.com/?email=\(email)")
-        actionCodeSettings.handleCodeInApp = true
-        actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
-
-        Auth.auth().sendSignInLink(toEmail: email, actionCodeSettings: actionCodeSettings) { error in
+        
+        Auth.auth().fetchSignInMethods(forEmail: email, completion: {
+            (providers, error) in
             if let error = error {
-                print("이메일 전송실패 \"\(error.localizedDescription)\"")
+                print(error.localizedDescription)
+            } else if providers != nil {
+                print("이미 가입된 이메일!")
+                self.updateErrorMessage(label: self.emailErrorLabel, isError: true, message: "이미 가입된 이메일입니다.")
                 return
             } else {
-                print("이메일 전송완료!")
-
-                self.updateErrorMessage(label: self.emailErrorLabel, isError: false, message: "인증 메일을 확인해주세요.\n(메일이 오지 않을 시, 스팸 메일함 확인)")
+                let actionCodeSettings = ActionCodeSettings()
+                actionCodeSettings.url = URL(string: "https://accountbook-270f1.firebaseapp.com/?email=\(email)")
+                actionCodeSettings.handleCodeInApp = true
+                actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
+                
+                Auth.auth().sendSignInLink(toEmail: email, actionCodeSettings: actionCodeSettings) { error in
+                    if let error = error {
+                        print("이메일 전송실패 \"\(error.localizedDescription)\"")
+                        return
+                    } else {
+                        print("이메일 전송완료!")
+                        
+                        self.updateErrorMessage(label: self.emailErrorLabel, isError: false, message: "인증 메일을 확인해주세요.\n(메일이 오지 않을 시, 스팸 메일함 확인)")
+                    }
+                }
             }
-        }
+        })
+        
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
-         self.view.endEditing(true)
-   }
+        self.view.endEditing(true)
+    }
     
 }
 
