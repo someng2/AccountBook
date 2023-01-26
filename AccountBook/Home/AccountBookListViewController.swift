@@ -98,46 +98,46 @@ class AccountBookListViewController: UIViewController {
         
         viewModel.uid
             .observe(on: MainScheduler.instance)
-            .subscribe { uid in
+            .subscribe { [weak self] uid in
                 print("---> uid = \(uid)")
-                self.viewModel.fetchDateFilter()
+                self?.viewModel.fetchDateFilter()
             }.disposed(by: bag)
         
         viewModel.dateFilter
             .observe(on: MainScheduler.instance)
-            .subscribe { filter in
-                print("---> new date filter: \(filter)")
-                self.viewModel.loadFirebaseData(dateFilter: filter)
+            .subscribe { [weak self] filter in
+//                print("---> new date filter: \(filter)")
+                self?.viewModel.loadFirebaseData(dateFilter: filter)
             }.disposed(by: bag)
         
         viewModel.summary
             .observe(on: MainScheduler.instance)
-            .subscribe { summary in
+            .subscribe { [weak self] summary in
 //                print("---> summary = \(summary)")
-                self.applySnapshot(items: [summary], section: .summary)
+                self?.applySnapshot(items: [summary], section: .summary)
             }.disposed(by: bag)
         
         viewModel.list
             .observe(on: MainScheduler.instance)
-            .subscribe { list in
+            .subscribe { [weak self] list in
 //                print("---> list = \(list)")
                 let revenueList = list.filter { $0.category == "수입"}
                 let totalRevenue = revenueList.map({$0.price}).reduce(0, +)
                 let expenseList = list.filter { $0.category == "지출"}
                 let totalExpense = expenseList.map({$0.price}).reduce(0, +)
-                self.viewModel.summary.onNext(Summary(revenue: totalRevenue, expense: totalExpense, sum: totalRevenue-totalExpense))
-                self.applySnapshot(items: list, section: .list)
+                self?.viewModel.summary.onNext(Summary(revenue: totalRevenue, expense: totalExpense, sum: totalRevenue-totalExpense))
+                self?.applySnapshot(items: list, section: .list)
             }.disposed(by: bag)
         
         viewModel.selectedItem
             .compactMap{ $0 }   // nil이 아닐 때
             .observe(on: MainScheduler.instance)
-            .subscribe { accountBook in
+            .subscribe { [weak self] accountBook in
                 let sb = UIStoryboard(name: "Detail", bundle: nil)
                 let vc = sb.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
                 vc.viewModel = DetailViewModel(accountBook: accountBook)
 //                vc.modalPresentationStyle = .fullScreen
-                self.present(vc, animated: true)
+                self?.present(vc, animated: true)
             }.disposed(by: bag)
     }
     

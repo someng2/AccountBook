@@ -39,9 +39,8 @@ class NewContentViewController: UIViewController {
             showToast(message: "12자 이내의 내용을 입력해주세요!")
             return
         }
-        
         vm.contents.onNext((contentTextView.text == "내용을 입력하세요 (12자 이내)") ? "" : contentTextView.text)
-        print("---> accountBook: \(vm.accountBook)")
+//        print("---> accountBook: \(vm.accountBook)")
         navigationController?.popViewController(animated: true)
     }
     

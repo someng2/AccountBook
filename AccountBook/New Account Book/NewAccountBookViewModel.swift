@@ -24,18 +24,18 @@ final class NewAccountBookViewModel {
         accountBook = AccountBook(category: "", subcategory: "", contents: "", price: 0, date: "")
         
         expenseMode
-            .subscribe { expenseMode in
-                self.accountBook.category = expenseMode ? "지출" : "수입"
+            .subscribe { [weak self] expenseMode in
+                self?.accountBook.category = expenseMode ? "지출" : "수입"
             }.disposed(by: bag)
         
         subcategory
-            .subscribe { subcategory in
-                self.accountBook.subcategory = subcategory
+            .subscribe { [weak self] subcategory in
+                self?.accountBook.subcategory = subcategory
             }.disposed(by: bag)
         
         contents
-            .subscribe { contents in
-            self.accountBook.contents = contents
+            .subscribe { [weak self] contents in
+            self?.accountBook.contents = contents
         }.disposed(by: bag)
     }
     

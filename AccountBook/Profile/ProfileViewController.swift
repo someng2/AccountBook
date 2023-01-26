@@ -21,7 +21,6 @@ class ProfileViewController: UIViewController {
     
     var nicknameLabel: UILabel = {
         let label = UILabel()
-//        label.textAlignment = .center
         label.font = .systemFont(ofSize: 25, weight: .bold)
         label.textColor = .black
         return label
@@ -43,18 +42,18 @@ class ProfileViewController: UIViewController {
     
     private func bind() {
         uid.subscribe { uid in
-            print("---> uid = \(uid)")
+//            print("---> uid = \(uid)")
             self.user.uid = uid
         }.disposed(by: bag)
         
         email.subscribe { email in
-            print("---> email = \(email)")
+//            print("---> email = \(email)")
             self.user.email = email
             self.addEmailLabel(email)
         }.disposed(by: bag)
         
         nickname.subscribe { nickname in
-            print("---> nickname = \(nickname)")
+//            print("---> nickname = \(nickname)")
             self.user.nickname = nickname
             self.addNicknameLabel(nickname)
         }.disposed(by: bag)

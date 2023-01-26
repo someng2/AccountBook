@@ -38,21 +38,21 @@ class NewAccountBookViewController: UIViewController{
 
     private func bind() {
         vm.expenseMode
-            .subscribe { mode in
-//                print("---> expenseMode: \(mode)")
-                self.updateUI(mode)
+            .subscribe { [weak self] mode in
+                print("---> expenseMode: \(mode)")
+                self?.updateUI(mode)
             }.disposed(by: bag)
         
         vm.contents
-            .subscribe { contents in
-//                print("---> contents : \(contents)")
-                self.contentLabel.text = (contents.isEmpty ? "내용을 입력하세요." : contents)
+            .subscribe { [weak self] contents in
+                print("---> contents : \(contents)")
+                self?.contentLabel.text = (contents.isEmpty ? "내용을 입력하세요." : contents)
             }.disposed(by: bag)
         
         vm.subcategory
-            .subscribe { subcategory in
-//                print("---> subcategory: \(subcategory)")
-                self.subcategoryLabel.text = subcategory
+            .subscribe { [weak self] subcategory in
+                print("---> subcategory: \(subcategory)")
+                self?.subcategoryLabel.text = subcategory
             }.disposed(by: bag)
     }
     

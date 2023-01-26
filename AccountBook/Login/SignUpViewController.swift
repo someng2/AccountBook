@@ -48,7 +48,7 @@ class SignUpViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.observer = UserDefaults.standard.observe(\.link, changeHandler: { defaults, value in
+        viewModel.observer = UserDefaults.standard.observe(\.link, changeHandler: {  defaults, value in
             let link = defaults.link
             //            print("---> link: \(link)")
             if !link.isEmpty {
