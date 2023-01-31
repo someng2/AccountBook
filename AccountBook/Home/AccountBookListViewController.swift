@@ -56,13 +56,6 @@ class AccountBookListViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-//    @objc func logOutButtonTapped() {
-//        UserDefaults.standard.removeObject(forKey: "Uid")
-//        let sb = UIStoryboard(name: "Login", bundle: nil)
-//        let vc = sb.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-//        self.navigationController?.pushViewController(vc, animated: true)
-//    }
-    
     private func configureCollectionView() {
         datasource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             guard let section = Section(rawValue: indexPath.section) else { return nil }

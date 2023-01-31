@@ -11,7 +11,6 @@ import RxSwift
 
 final class NewAccountBookViewModel {
     var accountBook: AccountBook
-    
     var expenseMode =  BehaviorSubject<Bool>.init(value: true)
     var subcategory = BehaviorSubject<String>.init(value: SubCategory.expenseList[0].name)
     var contents = BehaviorSubject<String>.init(value: "")

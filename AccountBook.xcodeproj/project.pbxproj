@@ -37,6 +37,7 @@
 		3D653B92293C7FEC005365AC /* NewAccountBook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D653B91293C7FEC005365AC /* NewAccountBook.storyboard */; };
 		3D653B94293C801A005365AC /* NewAccountBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D653B93293C801A005365AC /* NewAccountBookViewController.swift */; };
 		3D67F050293633E500095700 /* Summary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D67F04F293633E500095700 /* Summary.swift */; };
+		3DA85E232988FCEE0055D959 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA85E222988FCEE0055D959 /* ProfileViewModel.swift */; };
 		3DC7D1BC292D1706008C5D7A /* AccountBookListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7D1BB292D1706008C5D7A /* AccountBookListViewModel.swift */; };
 		3DC7D1BE292D1B82008C5D7A /* AccountBookListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7D1BD292D1B82008C5D7A /* AccountBookListCell.swift */; };
 		3DEA1ED629437FDE0059F6C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DEA1ED529437FDE0059F6C7 /* GoogleService-Info.plist */; };
@@ -96,6 +97,7 @@
 		3D653B91293C7FEC005365AC /* NewAccountBook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewAccountBook.storyboard; sourceTree = "<group>"; };
 		3D653B93293C801A005365AC /* NewAccountBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountBookViewController.swift; sourceTree = "<group>"; };
 		3D67F04F293633E500095700 /* Summary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summary.swift; sourceTree = "<group>"; };
+		3DA85E222988FCEE0055D959 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		3DC7D1BB292D1706008C5D7A /* AccountBookListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBookListViewModel.swift; sourceTree = "<group>"; };
 		3DC7D1BD292D1B82008C5D7A /* AccountBookListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBookListCell.swift; sourceTree = "<group>"; };
 		3DEA1ED529437FDE0059F6C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				3D4A71222975455800DBA007 /* ProfileViewController.swift */,
+				3DA85E222988FCEE0055D959 /* ProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				3D2C4FFA296549A5007215E4 /* SignUpViewController.swift in Sources */,
 				3D0DE4C3296671BB00792884 /* User.swift in Sources */,
 				3D39B7B3292D02C3007AE783 /* SummaryCell.swift in Sources */,
+				3DA85E232988FCEE0055D959 /* ProfileViewModel.swift in Sources */,
 				3D4A71232975455800DBA007 /* ProfileViewController.swift in Sources */,
 				3D2BC3F8295AC66600CE4AE6 /* NewSubcategoryViewController.swift in Sources */,
 				3D51CC1D293F7BFD005620C2 /* NewContentViewController.swift in Sources */,
