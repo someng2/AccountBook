@@ -128,8 +128,11 @@ class AccountBookListViewController: UIViewController {
             .subscribe { [weak self] accountBook in
                 let sb = UIStoryboard(name: "Detail", bundle: nil)
                 let vc = sb.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-                vc.viewModel = DetailViewModel(accountBook: accountBook)
-                self?.present(vc, animated: true)
+                if let uid = try? self?.viewModel.uid.value() {
+                    vc.detailVM = DetailViewModel(accountBook: accountBook, uid: uid)
+                    vc.listVM = self?.viewModel
+                    self?.present(vc, animated: true)
+                }
             }.disposed(by: bag)
     }
     
@@ -182,7 +185,6 @@ extension AccountBookListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             viewModel.didSelect(at: indexPath)
-            
         }
     }
 }
