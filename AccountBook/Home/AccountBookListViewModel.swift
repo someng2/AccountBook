@@ -26,12 +26,10 @@ final class AccountBookListViewModel {
     func didSelect(at indexPath: IndexPath) {
         do {
             let item = try list.value()[indexPath.item]
-            print("item = \(String(describing: item))")
             selectedItem.onNext(item)
         } catch {
             print("error!")
         }
-        
     }
     
     func fetchAccountBooks() {
@@ -71,7 +69,6 @@ final class AccountBookListViewModel {
                 for document in querySnapshot!.documents {
                     let data = document.data()
                     if self.formatDate(data["date"] as! String) == dateFilter {
-//                        print("\(document.documentID) => \(data)")
                         list.append(AccountBook(category: data["category"] as! String, subcategory: data["subcategory"] as! String, contents: data["contents"] as! String, price: data["price"] as! Int, date: data["date"] as! String))
                     }
                 }
@@ -85,7 +82,6 @@ final class AccountBookListViewModel {
         formatter.dateFormat = "yyyy.MM.dd HH:mm"
         if let date = formatter.date(from: origin) {
             formatter.dateFormat = "yyyy년 MM월"
-//            print("---> formatDate: \(formatter.string(from: date))")
             return formatter.string(from: date)
         } else {
             print("formatDate error!")
