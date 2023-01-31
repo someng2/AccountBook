@@ -7,6 +7,7 @@ UIKit, RxSwift, Firebase Authentication, Firestore, UserDefaults, KVO, Git
 - 이메일을 통한 회원가입 및 로그인
 - 수익/지출 데이터 추가
 - 월별 데이터 조회 및 수정
+- 프로필 조회, 로그아웃
 
 <p align="center"><img src="https://user-images.githubusercontent.com/96823668/211188011-e1323b36-b99f-4cad-984d-7e4710968734.jpeg" width="200"> <img src="https://user-images.githubusercontent.com/96823668/211188106-8ae85c79-f562-4690-8ce8-a52d241e7c1e.jpeg" width="200"> <img src = "https://user-images.githubusercontent.com/96823668/211753957-2f440790-2757-40a5-b81b-065e470329e0.png" width = "200"></p>
 
