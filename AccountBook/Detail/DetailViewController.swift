@@ -19,7 +19,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var contentsLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
     
-    var viewModel: DetailViewModel!
+    var detailVM: DetailViewModel!
+    var listVM: AccountBookListViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,7 @@ class DetailViewController: UIViewController {
     }
     
     private func configureUI() {
-        do { let item = try viewModel.accountBook.value()
+        do { let item = try detailVM.accountBook.value()
             closeButton.tintColor = .black
             iconImageView.image = getIcon(item)
             iconImageView.tintColor = .white
@@ -68,9 +69,18 @@ class DetailViewController: UIViewController {
         }
     }
     
-    
     @IBAction func closeButtonTapped(_ sender: Any) {
         self.dismiss(animated: true)
     }
+    
+    @IBAction func editButtonTapped(_ sender: Any) {
+        // TODO: 수정기능 구현
+        detailVM.deleteData()
+        let data = try! listVM.list.value()
+        let id = try! detailVM.accountBook.value().id
+        listVM.list.onNext(data.filter{ $0.id != id })
+        self.dismiss(animated: true)
+    }
+    
     
 }

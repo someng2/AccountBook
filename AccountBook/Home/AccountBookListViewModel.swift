@@ -69,7 +69,13 @@ final class AccountBookListViewModel {
                 for document in querySnapshot!.documents {
                     let data = document.data()
                     if self.formatDate(data["date"] as! String) == dateFilter {
-                        list.append(AccountBook(category: data["category"] as! String, subcategory: data["subcategory"] as! String, contents: data["contents"] as! String, price: data["price"] as! Int, date: data["date"] as! String))
+                        list.append(AccountBook(
+                            id: data["id"] as! String,
+                            category: data["category"] as! String,
+                            subcategory: data["subcategory"] as! String,
+                            contents: data["contents"] as! String,
+                            price: data["price"] as! Int,
+                            date: data["date"] as! String))
                     }
                 }
                 self.list.onNext(list)

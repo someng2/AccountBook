@@ -20,7 +20,7 @@ final class NewAccountBookViewModel {
     var uid: String = ""
     
     init() {
-        accountBook = AccountBook(category: "", subcategory: "", contents: "", price: 0, date: "")
+        accountBook = AccountBook(id: "\(UUID())", category: "", subcategory: "", contents: "", price: 0, date: "")
         
         expenseMode
             .subscribe { [weak self] expenseMode in
@@ -43,6 +43,7 @@ final class NewAccountBookViewModel {
         let documentID = "\(data.id)"
         db.collection("User").document(uid).collection("AccountBook").document(documentID)
             .setData([
+                "id": data.id,
                 "category" : data.category,
                 "subcategory" : data.subcategory,
                 "contents" : data.contents,
