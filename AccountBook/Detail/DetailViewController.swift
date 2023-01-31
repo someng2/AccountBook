@@ -68,9 +68,14 @@ class DetailViewController: UIViewController {
         }
     }
     
-    
     @IBAction func closeButtonTapped(_ sender: Any) {
         self.dismiss(animated: true)
     }
+    
+    @IBAction func editButtonTapped(_ sender: Any) {
+        // TODO: 수정기능 구현
+        
+    }
+    
     
 }

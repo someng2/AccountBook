@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import FirebaseFirestore
 
 final class DetailViewModel {
     
@@ -15,6 +16,18 @@ final class DetailViewModel {
     
     init(accountBook: AccountBook) {
         self.accountBook = BehaviorSubject(value: accountBook)
+        print("accountBook: \(accountBook)")
+    }
+    
+    func deleteData() {
+        let db = Firestore.firestore()
+//        db.collection("cities").document("DC").delete() { err in
+//            if let err = err {
+//                print("Error removing document: \(err)")
+//            } else {
+//                print("Document successfully removed!")
+//            }
+//        }
     }
     
 }

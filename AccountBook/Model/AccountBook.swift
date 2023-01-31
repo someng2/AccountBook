@@ -15,7 +15,7 @@ protocol DocumentSerializable {
 struct AccountBook: Hashable{
 //    @DocumentID var documentID: String?
     
-    var id = UUID()
+    var id: String
     var category: String
     var subcategory: String
     var contents: String
@@ -24,6 +24,7 @@ struct AccountBook: Hashable{
     
     var dictionary: [String: Any] {
         return [
+            "id": id,
             "category": category,
             "subcategory": subcategory,
             "contents": contents,
@@ -40,14 +41,15 @@ struct AccountBook: Hashable{
 
 extension AccountBook: DocumentSerializable {
     init?(dictionary: [String: Any]) {
-        guard let category = dictionary["category"] as? String,
+        guard let id = dictionary["id"] as? String,
+              let category = dictionary["category"] as? String,
               let subcategory = dictionary["subcategory"] as? String,
               let contents = dictionary["contents"] as? String,
               let price = dictionary["subcategory"] as? Int,
               let date = dictionary["date"] as? String
         else { return nil }
         
-        self.init(category: category, subcategory: subcategory, contents: contents, price: price, date: date)
+        self.init(id: id, category: category, subcategory: subcategory, contents: contents, price: price, date: date)
     }
 }
 
