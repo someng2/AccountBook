@@ -13,6 +13,7 @@ final class DetailViewModel {
     
     // Data -> Output
     let accountBook: BehaviorSubject<AccountBook>
+    
     let uid: String
     
     init(accountBook: AccountBook, uid: String) {
@@ -28,7 +29,7 @@ final class DetailViewModel {
         
         ref.delete() { err in
             if let err = err {
-                print("Error removing document: \(err)")
+                print("데이터 삭제 에러: \(err)")
             } else {
                 print("데이터 삭제 성공!")
             }
